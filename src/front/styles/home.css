@@ -5,3 +5,17 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+
+
+
+  .welcome-section {
+    background-color: #f9f9f9; /* Optional: Background color for the section */
+    padding: 50px 0; /* Add some padding */
+  }
+  
+  .organic-shape {
+    clip-path: ellipse(60% 70% at 50% 50%); /* Adjusts the shape to be more circular */
+    border-radius: 20%; /* Optional for smoother edges */
+  }
+  
+  
