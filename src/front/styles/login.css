@@ -41,58 +41,6 @@ a,a:hover{
 .myform-area .form-area .form-content h2{
   color: #fff;
 }
-.myform-area .form-area .form-content p{
-  color: #fff;
-}
-.myform-area .form-area .form-content ul{
-  margin-top: 50px;
-}
-
-.myform-area .form-area .form-content ul li{
-  display: inline-block;
-  margin-right: 10px;
-}
-.myform-area .form-area .form-content a i{
-    margin-right: 10px;
-}
-
-.myform-area .form-area .form-content .facebook{
-  display: block;
-  padding: 10px 20px;
-  background: #3b9d67;
-  color: #fff;
-  font-size: 15px;
-  text-transform: capitalize;
-  border-radius: 4px;
-  border: 1px solid #3B579D;
-  -webkit-transition: all .5s;
-  -o-transition: all .5s;
-  transition: all .5s;
-}
-
-.myform-area .form-area .form-content .facebook:hover,
-.myform-area .form-area .form-content .facebook:focus{
-    background: transparent;
-}
-
-.myform-area .form-area .form-content .twitter{
-  display: block;
-   padding: 10px 20px;
-   background: #00ACED;
-   color: #fff;
-   font-size: 15px;
-   text-transform: capitalize;
-   border-radius: 4px;
-   border: 1px solid #00ACED;
-   -webkit-transition: all .5s;
-   -o-transition: all .5s;
-   transition: all .5s;
-}
-
-.myform-area .form-area .form-content .twitter:hover,
-.myform-area .form-area .form-content .twitter:focus{
-    background: transparent;
-}
 .myform-area .form-area .form-input{
   background-color: white;
   position: relative;
@@ -122,7 +70,6 @@ a,a:hover{
 
 .myform-area .form-area .form-input input,
 .myform-area .form-area .form-input textarea{
-    text-transform: capitalize;
     width: 100%;
     box-sizing: border-box;
     outline: none;
@@ -135,7 +82,6 @@ a,a:hover{
 }
 .myform-area .form-area .form-input form .form-group label{
     position: absolute;
-    text-transform: capitalize;
     top: 20px;
     left: 0;
     pointer-events: none;
@@ -188,6 +134,16 @@ a,a:hover{
     background: #129c47;
 }
 img{
-   width: 240px;
+   width: 250px;
    mix-blend-mode: multiply;
+}
+
+.ginput,.glabel{
+  font-weight: bold;    
+  color:#1f9c53;    
+}
+
+.rbuttom{
+  margin-top: 10px;
+  width: 370px;
 }
