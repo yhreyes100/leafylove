@@ -34,7 +34,7 @@ export const Singup = () => {
 									</div>
 									<button className="btn btn-success rbuttom">Singup</button>
 									<div className="text-center pb-4 mt-4">
-										You have an account? <Link to="/">Login</Link>
+										You have an account? <Link to="/login">Login</Link>
 									</div>
 								</div>
 							</div>
