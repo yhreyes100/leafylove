@@ -36,9 +36,9 @@ export const Singup = () => {
 								<input type="password" className="form-control border-0 border-bottom border-success shadow-none text-success fw-bold ginput" id="floatingPassword" placeholder="Password" required />
 								<label className="glabel" htmlFor="floatingPassword">Repeat Password</label>
 							</div>							
-							<button className="btn btn-success rbuttom">Registrer</button>
+							<button className="btn btn-success rbuttom">Signup</button>
 							<div className="text-center pb-4 mt-4 link">
-								You have an account? <Link to="/login">Login</Link>
+								You have an account? <Link to="/login">Signup</Link>
 							</div>
 						</div>
 					</div>

@@ -40,13 +40,6 @@ a,a:hover{
   width: 100%;
   text-shadow: 3px 3px 4px black;
 }
-/*
-.content{
-  border-radius: 10px 10px 10px 10px;
-  box-shadow: 0 0 0.25em 0.25em rgba(146, 138, 123, 0.25);
-  box-shadow: inset 0 0 2vmin 1vmin  #8fbc8f;
-}*/
-
 .sitename{
   margin-top: 20px;
   margin-bottom: 20px;
