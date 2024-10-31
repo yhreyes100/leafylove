@@ -28,7 +28,7 @@ export const Login = () => {
 							</div>
 							<button className="btn btn-success rbuttom">Login</button>
 							<div className="text-center pb-4 mt-4">
-								You have an account? <Link to="/singup">Singup</Link>
+								Don't have an account? <Link to="/signup">Signup</Link>
 							</div>
 						</div>
 					</div>
