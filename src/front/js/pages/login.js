@@ -6,7 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 export const Login = () => {
 	const { store, actions } = useContext(Context);
 	const [passw, setPassw] = useState("")
-	const [email, setEmail] = useState("")
+	const [userName, setUserName] = useState("")
 	return (
 		<section className="myform-area">
 			<div className="container justify-content-center">
@@ -14,7 +14,7 @@ export const Login = () => {
 					<div className="col-lg-2"></div>
 					<div className="col-lg-8 col-sm-12 row justify-content-center content">
 						<div className="col-lg-6 col-sm-6 content">
-							<img src={loginpicImageUrl1} />
+							<img className="logimg" src={loginpicImageUrl1} />
 						</div>
 						<div className="col-lg-6 col-sm-6 content">
 							<h2 className="sitename">LeafyLove</h2>
