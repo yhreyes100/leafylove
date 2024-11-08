@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
-from flask import Flask, jsonify,request,url_for,send_from_directory,abort
+from flask import Flask, jsonify,request,url_for,send_from_directory,abort,make_response
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
@@ -92,12 +92,13 @@ def handle_signup():
         }
         return jsonify(response_body), 200
     else:
-        abort(409, description="User allready exist")
-        #abort(jsonify(message="User allready exist"), 409)
-        response_body = {
+        #abort(409, description="User allready exist")
+        #abort(409,"User allready exist")
+        resp=make_response(jsonify("User Allready exist"),409)
+        """response_body = {
             "message":"User allready exist"
-        }  
-        return jsonify(response_body), 409
+        } """
+        return resp
 
 
 
