@@ -2,14 +2,16 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
-from flask import Flask, request, jsonify, url_for, send_from_directory
+from flask import Flask, jsonify,request,url_for,send_from_directory,abort
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
-from api.models import db
+from api.models import db,User
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_cors import CORS
 
 # from models import Person
 
@@ -30,6 +32,13 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
+
+
+# Configura la extensión Flask-JWT-Extended
+app.config["JWT_SECRET_KEY"] = "super19"  # ¡Cambia las palabras "super-secret" por otra cosa!
+jwt = JWTManager(app)
+
+CORS(app)
 
 # add the admin
 setup_admin(app)
@@ -66,6 +75,30 @@ def serve_any_other_file(path):
     response = send_from_directory(static_file_dir, path)
     response.cache_control.max_age = 0  # avoid cache memory
     return response
+
+@app.route('/signup', methods=['POST'])
+def handle_signup():
+    data =  request.json
+    existUser = User.query.filter_by(username=request.json["username"])
+    existEmail = User.query.filter_by(email=request.json["email"])
+    if not existUser and not existEmail:  
+        user1 = User(email=data["email"],username=data["username"], password=data["password"], is_active=False)
+        db.session.add(user1)
+        db.session.commit()
+        users = User.query.all()
+        users = list(map(lambda x: x.serialize(), users))
+        response_body = {
+            "message":"User was created"
+        }
+        return jsonify(response_body), 200
+    else:
+        abort(409, description="User allready exist")
+        #abort(jsonify(message="User allready exist"), 409)
+        response_body = {
+            "message":"User allready exist"
+        }  
+        return jsonify(response_body), 409
+
 
 
 # this only runs if `$ python src/main.py` is executed

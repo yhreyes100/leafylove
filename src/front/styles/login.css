@@ -55,3 +55,9 @@ a,a:hover{
 .pb-4{
   text-shadow: 3px 3px 4px black;
 }
+/*
+.form-group input:focus ~ label,
+.form-group input:valid ~ label{
+  color: white;
+}
+*/
