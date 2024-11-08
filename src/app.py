@@ -92,12 +92,7 @@ def handle_signup():
         }
         return jsonify(response_body), 200
     else:
-        #abort(409, description="User allready exist")
-        #abort(409,"User allready exist")
         resp=make_response(jsonify("User Allready exist"),409)
-        """response_body = {
-            "message":"User allready exist"
-        } """
         return resp
 
 
