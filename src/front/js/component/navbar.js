@@ -14,6 +14,10 @@ export const Navbar = () => {
 					<button className="btn btn-outline-success" type="submit">Search</button>
 				</form>
 				<div className="ml-auto">
+
+					<Link to="/library">
+						<button className="btn btn-success me-2">Plant Blog </button>
+					</Link>
 					<Link to="/demo">
 						<button className="btn btn-success">Sign Up/Register <i class="fa-solid fa-user"></i></button>
 					</Link>

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PlantBlog from "./blog";
 export const WelcomeSection = () => {
   return (
     <div className="welcome-section text-center">
@@ -47,6 +47,9 @@ export const WelcomeSection = () => {
             />
           </div>
         </div>
+        </div>
+        <div>
+          {<PlantBlog />}
         </div>
         </div>
   );

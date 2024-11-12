@@ -19,7 +19,7 @@ class User(db.Model):
             "email": self.email,
             # do not serialize the password, its a security breach
         }
-    
+   
 class Plants(db.Model):
    # __tablename__="plant_table"
     id=db.Column(db.Integer,primary_key=True)
@@ -36,7 +36,7 @@ class Plants(db.Model):
         return {
             "id": self.id,
             "common_name": self.common_name,
-            "scientefic__name": self.scientefic_name,
+            "scientific__name": self.scientific_name,
             "other_name":self.other_name,
             "default_image":self.default_image,
             "watering":self.watering,
