@@ -11,6 +11,7 @@ export const Singup = () => {
 	const [email, setEmail] = useState("")
 	const [userName, setUserName] = useState("")
 	const [error, setError] = useState("");
+	const [message, setMessage] = useState("");
 	const signupFetch = () => {
 		fetch(store.urlFetchApi + '/signup', {
 			method: "POST",
@@ -23,9 +24,14 @@ export const Singup = () => {
 				return resp.json();
 			})
 			.then(data => {
-				if (data["errors"])
+				if (data["errors"]){
 					setError(Object.entries(data["errors"]))
-
+					setMessage("")
+				}
+				if(data["message"]){
+					setMessage(Object.entries(data))
+					setError("")
+				}
 				console.log(data);
 			})
 			.catch(error => {
@@ -35,14 +41,21 @@ export const Singup = () => {
 	const signup = () => {
 		signupFetch();
 	}
-
 	return (
 		<section className="myform-area">
 			<div className="container justify-content-center">
 				<ul className="list-group">
-					{error != "" ?
+					{
+					error != "" ?
 						error.map((err, index) => (
 							<li key={index} className="list-group-item list-group-item-danger alertlg">{err[1]}</li>
+						))
+						: ""
+					}
+					{
+					message!=""?
+						message.map((mess, index) => (
+							<li key={index} className="list-group-item list-group-item-success alertlg">{mess[1]}</li>
 						))
 						: ""
 					}

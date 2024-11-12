@@ -106,12 +106,9 @@ def handle_signup():
         user1 = User(email=data["email"],username=data["username"], password=data["password"], is_active=False)
         db.session.add(user1)
         db.session.commit()
-        users = User.query.all()
-        users = list(map(lambda x: x.serialize(), users))
-        response_body = {
-                        "message":"User successfuly created"
-                        }
-        return jsonify(response_body), 200
+        response_body={}
+        response_body["message"]="User successfuly created"
+        return make_response(jsonify(response_body),200)
     else:
         response_error={"errors":{}}
         if not(len(list(existUser))==0):
@@ -139,15 +136,28 @@ def handle_signup():
 @app.route('/login', methods=['POST'])
 def handle_login():
     user = User.query.filter_by(username=request.json["username"], password=request.json["password"]).first()
-    if not user:
+    if (len(list(user))==0):
         user = User.query.filter_by(email=request.json["username"], password=request.json["password"]).first()
-    if user:
+    if not (len(list(user))==0):
         access_token=create_access_token(identity=user.username)
         return jsonify({"token":access_token,"user":user.username}),200
     else:
         resp=make_response(jsonify("Missing or Incorrect Credentials"),401)
         return resp
 
+
+
+@app.route('/user/<int:id>', methods=['DELETE'])
+def delete_user(id):
+    user = User.query.get([id])
+    db.session.delete(user)
+    db.session.commit()
+    users = User.query.all()
+    users = list(map(lambda x: x.serialize(), users))
+    response_body = {
+    "users":users
+    }
+    return jsonify(response_body), 200
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
