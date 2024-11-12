@@ -10,14 +10,14 @@ export const Singup = () => {
 	const [rpassw, setRPassw] = useState("")
 	const [email, setEmail] = useState("")
 	const [userName, setUserName] = useState("")
-	const [error,setError] = useState("");
+	const [error, setError] = useState("");
 	const signupFetch = () => {
 		fetch(store.urlFetchApi + '/signup', {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body: JSON.stringify({ "username": userName, "email": email, "password": passw }),
+			body: JSON.stringify({ "username": userName, "email": email, "password": passw, "rpassword": rpassw }),
 		})
 			.then(resp => {
 				return resp.json();
@@ -25,38 +25,28 @@ export const Singup = () => {
 			.then(data => {
 				if (data["errors"])
 					setError(Object.entries(data["errors"]))
-				else
-					console.log(data);
+
+				console.log(data);
 			})
 			.catch(error => {
 				console.log(error);
 			});
 	}
 	const signup = () => {
-		if (
-			validator.isEmail(email)
-			&& !validator.isEmpty(email)
-			&& !validator.isEmpty(userName)
-			&& !validator.isEmpty(passw)
-			&& (passw === rpassw)
-		)
-			signupFetch();
+		signupFetch();
 	}
 
 	return (
 		<section className="myform-area">
 			<div className="container justify-content-center">
-			{ error!=""?
-				error.map((err,index)=>(
-					<div className="alert alert-danger alert-dismissible fade show" role="alert">
-					<strong>{err[index]}</strong> 
-					<button type="button" className="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					</div>
-					))
-			:""
-			}
+				<ul className="list-group">
+					{error != "" ?
+						error.map((err, index) => (
+							<li key={index} className="list-group-item list-group-item-danger alertlg">{err[1]}</li>
+						))
+						: ""
+					}
+				</ul>
 				<div className="row">
 					<div className="col-lg-2"></div>
 					<div className="col-lg-8 col-sm-12 row justify-content-center content">

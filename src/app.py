@@ -12,7 +12,7 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
-
+import re
 # from models import Person
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -50,7 +50,14 @@ setup_commands(app)
 app.register_blueprint(api, url_prefix='/api')
 
 # Handle/serialize errors like a JSON object
-
+def validate_password(password):  
+    reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$"
+     
+    # compiling regex
+    pat = re.compile(reg)
+     
+    # searching regex                 
+    return re.search(pat, password)  
 
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
@@ -94,7 +101,8 @@ def handle_signup():
     data =  request.json
     existUser = User.query.filter_by(username=data["username"])
     existEmail = User.query.filter_by(email=data["email"])
-    if  (len(list(existUser))==0) and  (len(list(existEmail))==0):
+    validemail = re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', data["email"])
+    if  (len(list(existUser))==0) and  (len(list(existEmail))==0) and data["username"]!="" and data["email"]!="" and validemail and validate_password(data["password"]) and (data["rpassword"]==data["password"]):
         user1 = User(email=data["email"],username=data["username"], password=data["password"], is_active=False)
         db.session.add(user1)
         db.session.commit()
@@ -107,11 +115,23 @@ def handle_signup():
     else:
         response_error={"errors":{}}
         if not(len(list(existUser))==0):
-            response_error["errors"]["User"] = "User Allready Exist"
+            response_error["errors"]["User"] = "User already exist"
         if not(len(list(existEmail))==0):
-            response_error["errors"]["Email"] = "Email Allready in Use"
+            response_error["errors"]["Email"] = "Email already in use"
+        if  data["username"]=="":
+            response_error["errors"]["UserEmpty"] = "Empty username"  
+        if  data["email"]=="":
+            response_error["errors"]["EmailEmpty"] = "Empty email"    
+        if  data["password"]=="":
+            response_error["errors"]["PasswordEmpty"] = "Empty password"   
+        if not validemail and not data["email"]=="":
+            response_error["errors"]["InvaliEmail"] = "Invalid email"   
+        if not validate_password(data["password"]):
+            response_error["errors"]["InvaliPassword"] = "The password must have at least 8 characters,special symbols, number, uppercase and lowercase."     
+        if not (data["rpassword"]==data["password"]) and validate_password(data["password"]):
+            response_error["errors"]["PasswordMissMatch"] = "Passwords do not match."           
         if not response_error=={}:
-            resp=make_response(jsonify(response_error),409)
+            resp=make_response(jsonify(response_error),400)
             return resp    
 
 
