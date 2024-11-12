@@ -76,26 +76,57 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0  # avoid cache memory
     return response
 
+@app.route('/users', methods=['GET'])
+def get_users():
+    """logged_user = get_jwt_identity();
+    user = User.query.filter_by(username=logged_user).first()"""
+    users = User.query.all()
+    users = list(map(lambda x: x.serialize(), users))
+    response_body = {
+    "users":users
+    }
+    return jsonify(response_body), 200
+
+
+
 @app.route('/signup', methods=['POST'])
 def handle_signup():
     data =  request.json
-    existUser = User.query.filter_by(username=request.json["username"])
-    existEmail = User.query.filter_by(email=request.json["email"])
-    if not existUser and not existEmail:  
+    existUser = User.query.filter_by(username=data["username"])
+    existEmail = User.query.filter_by(email=data["email"])
+    if  (len(list(existUser))==0) and  (len(list(existEmail))==0):
         user1 = User(email=data["email"],username=data["username"], password=data["password"], is_active=False)
         db.session.add(user1)
         db.session.commit()
         users = User.query.all()
         users = list(map(lambda x: x.serialize(), users))
         response_body = {
-            "message":"User was created"
-        }
+                        "message":"User successfuly created"
+                        }
         return jsonify(response_body), 200
     else:
-        resp=make_response(jsonify("User Allready exist"),409)
+        response_error={"errors":{}}
+        if not(len(list(existUser))==0):
+            response_error["errors"]["User"] = "User Allready Exist"
+        if not(len(list(existEmail))==0):
+            response_error["errors"]["Email"] = "Email Allready in Use"
+        if not response_error=={}:
+            resp=make_response(jsonify(response_error),409)
+            return resp    
+
+
+
+@app.route('/login', methods=['POST'])
+def handle_login():
+    user = User.query.filter_by(username=request.json["username"], password=request.json["password"]).first()
+    if not user:
+        user = User.query.filter_by(email=request.json["username"], password=request.json["password"]).first()
+    if user:
+        access_token=create_access_token(identity=user.username)
+        return jsonify({"token":access_token,"user":user.username}),200
+    else:
+        resp=make_response(jsonify("Missing or Incorrect Credentials"),401)
         return resp
-
-
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

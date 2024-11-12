@@ -7,6 +7,25 @@ export const Login = () => {
 	const { store, actions } = useContext(Context);
 	const [passw, setPassw] = useState("")
 	const [userName, setUserName] = useState("")
+	const login = ()=>{
+		fetch(store.urlFetchApi+"/login",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({"username":userName,"passw": password}),
+          })
+          .then(resp => {
+              return resp.json();
+          })
+          .then(data => {
+            localStorage.setItem("jwt-token",data.token)
+            navigate("/users") 
+          })
+          .catch(error => {
+              console.log(error);
+          });
+	}
 	return (
 		<section className="myform-area">
 			<div className="container justify-content-center">
@@ -19,14 +38,18 @@ export const Login = () => {
 						<div className="col-lg-6 col-sm-6 content">
 							<h2 className="sitename">LeafyLove</h2>
 							<div className="form-floating form-group">
-								<input type="email" className="form-control border-0 border-bottom border-success shadow-none text-success fw-bold ginput" id="floatingInput" placeholder="name@example.com" required />
+								<input type="text" className="form-control border-0 border-bottom border-success shadow-none text-success fw-bold ginput" 
+								onChange={(e) => { setUserName(e.target.value) }}
+								id="floatingInput" placeholder="name@example.com" required />
 								<label className="glabel" htmlFor="floatingInput">Email or Nickname</label>
 							</div>
 							<div className="form-floating form-group">
-								<input type="password" className="form-control border-0 border-bottom border-success shadow-none text-success fw-bold ginput" id="floatingPassword" placeholder="Password" required />
+								<input type="password" className="form-control border-0 border-bottom border-success shadow-none text-success fw-bold ginput" 
+								onChange={(e) => { setPassw(e.target.value) }}
+								id="floatingPassword" placeholder="Password" required />
 								<label className="glabel" htmlFor="floatingPassword">Password</label>
 							</div>
-							<button className="btn btn-success rbuttom">Login</button>
+							<button className="btn btn-success rbuttom" onClick={() => login()}>Login</button>
 							<div className="text-center pb-4 mt-4">
 								Don't have an account? <Link to="/signup">Signup</Link>
 							</div>

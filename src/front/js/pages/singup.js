@@ -10,6 +10,7 @@ export const Singup = () => {
 	const [rpassw, setRPassw] = useState("")
 	const [email, setEmail] = useState("")
 	const [userName, setUserName] = useState("")
+	const [error,setError] = useState("");
 	const signupFetch = () => {
 		fetch(store.urlFetchApi + '/signup', {
 			method: "POST",
@@ -19,14 +20,16 @@ export const Singup = () => {
 			body: JSON.stringify({ "username": userName, "email": email, "password": passw }),
 		})
 			.then(resp => {
-				if (resp.status==409)throw Error("User allready exist")
 				return resp.json();
 			})
 			.then(data => {
-				console.log(data);
+				if (data["errors"])
+					setError(Object.entries(data["errors"]))
+				else
+					console.log(data);
 			})
 			.catch(error => {
-				alert(error);
+				console.log(error);
 			});
 	}
 	const signup = () => {
@@ -43,6 +46,17 @@ export const Singup = () => {
 	return (
 		<section className="myform-area">
 			<div className="container justify-content-center">
+			{ error!=""?
+				error.map((err,index)=>(
+					<div className="alert alert-danger alert-dismissible fade show" role="alert">
+					<strong>{err[index]}</strong> 
+					<button type="button" className="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					</div>
+					))
+			:""
+			}
 				<div className="row">
 					<div className="col-lg-2"></div>
 					<div className="col-lg-8 col-sm-12 row justify-content-center content">
