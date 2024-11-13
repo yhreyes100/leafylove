@@ -7,7 +7,7 @@ export const Library = () => {
     useEffect(() => {
         actions.getPlantList();
     }, []);
-
+console.log(store.favoritePlantList)
     return (
         <div className="container d-flex gap-5">
             {store.plantList.slice(0, 10).map((plant) => (
