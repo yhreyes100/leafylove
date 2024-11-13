@@ -1,5 +1,5 @@
 const getState = ({ getStore, getActions, setStore }) => {
-    let speciesapiUrl = "https://perenual.com/api/species-list?key=sk-wHFC671c438acf92c7433&page=1";
+    let speciesapiUrl = `https://perenual.com/api/species-list?key=${process.env.APIKEY}&page=1`;
     
     return {
         store: {
@@ -21,7 +21,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 .catch(error => console.error("Error fetching plant list:", error));
             },
 
-            addFavorite: (plant) => {
+            addFavorite: (plant, Userid) => {
                 const store = getStore();
                 const isAlreadyFavorite = store.favoritePlantList.some((elem) => elem.id === plant.id);
                 

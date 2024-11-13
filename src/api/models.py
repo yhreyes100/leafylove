@@ -17,7 +17,23 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
+            "firstname": self.firstname,
+            "lastname": self.lastname
             # do not serialize the password, its a security breach
         }
+
+class PlantFavorites(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.Integer, db.ForeignKey("user.id"))
+    plantid = db.Column(db.Integer, db.ForeignKey("plant.id"))
     
-    # class Plants()
+    def __repr__(self):
+        return f'<PlantFavorites {self.userid}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "usierid": self.userid,
+            "plantid": self.plantid
+            # do not serialize the password, its a security breach
+        }
