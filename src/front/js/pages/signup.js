@@ -10,39 +10,54 @@ export const Singup = () => {
 	const [rpassw, setRPassw] = useState("")
 	const [email, setEmail] = useState("")
 	const [userName, setUserName] = useState("")
+	const [error, setError] = useState("");
+	const [message, setMessage] = useState("");
 	const signupFetch = () => {
 		fetch(store.urlFetchApi + '/signup', {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body: JSON.stringify({ "username": userName, "email": email, "password": passw }),
+			body: JSON.stringify({ "username": userName, "email": email, "password": passw, "rpassword": rpassw }),
 		})
 			.then(resp => {
-				if (resp.status==409)throw Error("User allready exist")
 				return resp.json();
 			})
 			.then(data => {
+				if (data["errors"]){
+					setError(Object.entries(data["errors"]))
+					setMessage("")
+				}
+				if(data["message"]){
+					setMessage(Object.entries(data))
+					setError("")
+				}
 				console.log(data);
 			})
 			.catch(error => {
-				alert(error);
+				console.log(error);
 			});
 	}
-	const signup = () => {
-		if (
-			validator.isEmail(email)
-			&& !validator.isEmpty(email)
-			&& !validator.isEmpty(userName)
-			&& !validator.isEmpty(passw)
-			&& (passw === rpassw)
-		)
-			signupFetch();
-	}
-
+	
 	return (
 		<section className="myform-area">
 			<div className="container justify-content-center">
+				<ul className="list-group">
+					{
+					error != "" ?
+						error.map((err, index) => (
+							<li key={index} className="list-group-item list-group-item-danger alertlg">{err[1]}</li>
+						))
+						: ""
+					}
+					{
+					message!=""?
+						message.map((mess, index) => (
+							<li key={index} className="list-group-item list-group-item-success alertlg">{mess[1]}</li>
+						))
+						: ""
+					}
+				</ul>
 				<div className="row">
 					<div className="col-lg-2"></div>
 					<div className="col-lg-8 col-sm-12 row justify-content-center content">
@@ -75,7 +90,7 @@ export const Singup = () => {
 									id="floatingPassword" placeholder="Password" required />
 								<label className="glabel" htmlFor="floatingPassword">Repeat Password</label>
 							</div>
-							<button className="btn btn-success rbuttom" onClick={() => signup()} >Signup</button>
+							<button className="btn btn-success rbuttom" onClick={() => signupFetch()} >Signup</button>
 							<div className="text-center pb-4 mt-4 link">
 								You have an account? <Link to="/login">Login</Link>
 							</div>

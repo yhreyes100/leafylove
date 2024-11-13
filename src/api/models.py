@@ -12,12 +12,12 @@ class User(db.Model):
     def __repr__(self):
         return f'<User {self.email}>'
     
-
     def serialize(self):
         return {
             "id": self.id,
             "email": self.email,
             "username": self.username,
+            "password": self.password,
             "is_active": self.is_active
             # do not serialize the password, its a security breach
         }
