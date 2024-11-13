@@ -1,3 +1,19 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+.welcome-section {
+    background-color: #8fbc8f; 
+    padding: 50px 0; 
+  }
+  
+  /* .organic-shape { */
+    /* clip-path: ellipse(60% 70% at 50% 50%); 
+    border-radius: 20%; 
+  } */
+
+  
+  .glow-hover:hover {
+    box-shadow: 0 0 15px 5px rgba(13, 227, 227, 0.7); 
+    transition: box-shadow 0.3s ease; 
+  }
+  
