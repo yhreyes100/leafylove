@@ -57,6 +57,6 @@ a,a:hover{
 }
 .alertlg{
 text-align: center;
-text-shadow: 3px 3px 4px black;
+/*text-shadow: 3px 3px 4px black;*/
 font-weight: bold;
 }

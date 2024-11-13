@@ -13,6 +13,7 @@ from api.commands import setup_commands
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
 import re
+import hashlib
 # from models import Person
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -101,9 +102,11 @@ def handle_signup():
     data =  request.json
     existUser = User.query.filter_by(username=data["username"])
     existEmail = User.query.filter_by(email=data["email"])
+    
     validemail = re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', data["email"])
     if  (len(list(existUser))==0) and  (len(list(existEmail))==0) and data["username"]!="" and data["email"]!="" and validemail and validate_password(data["password"]) and (data["rpassword"]==data["password"]):
-        user1 = User(email=data["email"],username=data["username"], password=data["password"], is_active=False)
+        encodepass = hashlib.sha256(data["password"].encode("utf-8")).hexdigest()
+        user1 = User(email=data["email"],username=data["username"], password= encodepass, is_active=False)
         db.session.add(user1)
         db.session.commit()
         response_body={}
@@ -135,15 +138,18 @@ def handle_signup():
 
 @app.route('/login', methods=['POST'])
 def handle_login():
-    user = User.query.filter_by(username=request.json["username"], password=request.json["password"]).first()
-    if (len(list(user))==0):
-        user = User.query.filter_by(email=request.json["username"], password=request.json["password"]).first()
-    if not (len(list(user))==0):
+    encodepass = hashlib.sha256(request.json["password"].encode("utf-8")).hexdigest()
+    user = User.query.filter_by(username=request.json["username"], password= encodepass).first()
+    useremail = User.query.filter_by(email=request.json["username"], password=encodepass).first()
+    if user is not None:
         access_token=create_access_token(identity=user.username)
-        return jsonify({"token":access_token,"user":user.username}),200
-    else:
-        resp=make_response(jsonify("Missing or Incorrect Credentials"),401)
-        return resp
+        return jsonify({"token":access_token,"user":user.username,"id":user.id}),200
+    elif useremail is not None:
+        access_token=create_access_token(identity=useremail.username)
+        return jsonify({"token":access_token,"user":useremail.username,"id":useremail.id}),200
+    else:       
+        return make_response(jsonify({"error":"Missing or Incorrect Credentials"}),401) 
+        
 
 
 

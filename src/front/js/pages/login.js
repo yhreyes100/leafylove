@@ -5,22 +5,28 @@ import loginpicImageUrl1 from "../../img/pl1.jpg";
 import { useNavigate, Link } from "react-router-dom";
 export const Login = () => {
 	const { store, actions } = useContext(Context);
+	const navigate = useNavigate();
 	const [passw, setPassw] = useState("")
 	const [userName, setUserName] = useState("")
+	const [error, setError] = useState("");
 	const login = ()=>{
 		fetch(store.urlFetchApi+"/login",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({"username":userName,"passw": password}),
+            body: JSON.stringify({"username":userName,"password": passw}),
           })
           .then(resp => {
               return resp.json();
           })
-          .then(data => {
+          .then(data => {			 
+			if(data["error"])
+				setError(Object.entries(data))
+			else actions.setUser(data.user)
+			console.log(store.user)
             localStorage.setItem("jwt-token",data.token)
-            navigate("/users") 
+            navigate("/profile") 
           })
           .catch(error => {
               console.log(error);
@@ -30,6 +36,13 @@ export const Login = () => {
 		<section className="myform-area">
 			<div className="container justify-content-center">
 				<div className="row">
+					{
+					error != "" ?
+						error.map((err, index) => (
+							<li key={index} className="list-group-item list-group-item-danger alertlg">{err[1]}</li>
+						))
+						: ""
+					}
 					<div className="col-lg-2"></div>
 					<div className="col-lg-8 col-sm-12 row justify-content-center content">
 						<div className="col-lg-6 col-sm-6 content">
