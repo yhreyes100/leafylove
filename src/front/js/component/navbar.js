@@ -18,7 +18,7 @@ export const Navbar = () => {
 					<Link to="/library">
 						<button className="btn btn-success me-2">Plant Blog </button>
 					</Link>
-					<Link to="/demo">
+					<Link to="/signup">
 						<button className="btn btn-success">Sign Up/Register <i class="fa-solid fa-user"></i></button>
 					</Link>
 				</div>
