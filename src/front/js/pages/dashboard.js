@@ -8,7 +8,7 @@ export const Dashboard = () => {
     return (
         <div className="container dashboardcontainer">
             <div className="row">
-                <div className="col-lg-3 col-sm-12">
+                <div className="col-lg-3 col-sm-6">
                     <div className="card carddashboard">
                         <img className="card-img-top" src="https://thumbs.dreamstime.com/b/icono-de-perfil-usuario-bot%C3%B3n-verde-elegante-ilustraci%C3%B3n-vectorial-aislado-en-167325528.jpg" alt="Card image cap"/>
                             <div className="card-body cbdashboard">
@@ -16,7 +16,7 @@ export const Dashboard = () => {
                             </div>
                     </div>
                 </div>
-                <div className="col-lg-3 col-sm-12">
+                <div className="col-lg-3 col-sm-6">
                     <div className="card carddashboard">
                         <img className="card-img-top" src="https://thumbs.dreamstime.com/b/3d-green-checkmark-chrome-checkbox-23476468.jpg" alt="Card image cap"/>
                             <div className="card-body cbdashboard">
@@ -24,7 +24,7 @@ export const Dashboard = () => {
                             </div>
                     </div>
                 </div>
-                <div className="col-lg-3 col-sm-12">
+                <div className="col-lg-3 col-sm-6">
                     <div className="card carddashboard">
                         <img className="card-img-top" src="https://png.pngtree.com/png-vector/20231116/ourmid/pngtree-blog-icon-network-png-image_10540682.png" alt="Card image cap"/>
                             <div className="card-body cbdashboard">
@@ -32,7 +32,7 @@ export const Dashboard = () => {
                             </div>
                     </div>
                 </div>
-                <div className="col-lg-3 col-sm-12">
+                <div className="col-lg-3 col-sm-6">
                     <div className="card carddashboard">
                         <img className="card-img-top" src="https://img.freepik.com/premium-photo/picture-plant-with-green-leaves-white-background_605423-27920.jpg" alt="Card image cap"/>
                             <div className="card-body cbdashboard">
