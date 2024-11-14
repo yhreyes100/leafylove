@@ -9,6 +9,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     firstname = db.Column(db.String(250), nullable=False)
     lastname = db.Column(db.String(250), nullable=False)
+    faveplant = db.relationship("PlantFavorites")
 
     def __repr__(self):
         return f'<User {self.email}>'
