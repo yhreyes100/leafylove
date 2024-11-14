@@ -5,11 +5,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			urlFetchApi:"https://expert-space-carnival-pg94q459jr5cggr-3001.app.github.dev",
+			user:"",
 			plantList: [],
 			favoritePlantList: []
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
+			setUser(value){
+				setStore({user:value});
+			},
 			getPlantList: () => {
 				fetch(speciesapiUrl)
 				.then((res) => {

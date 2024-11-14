@@ -12,7 +12,8 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 # from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
-
+import re
+import hashlib
 # from models import Person
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -50,7 +51,14 @@ setup_commands(app)
 app.register_blueprint(api, url_prefix='/api')
 
 # Handle/serialize errors like a JSON object
-
+def validate_password(password):  
+    reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$"
+     
+    # compiling regex
+    pat = re.compile(reg)
+     
+    # searching regex                 
+    return re.search(pat, password)  
 
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
@@ -76,27 +84,88 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0  # avoid cache memory
     return response
 
+@app.route('/users', methods=['GET'])
+def get_users():
+    """logged_user = get_jwt_identity();
+    user = User.query.filter_by(username=logged_user).first()"""
+    users = User.query.all()
+    users = list(map(lambda x: x.serialize(), users))
+    response_body = {
+    "users":users
+    }
+    return jsonify(response_body), 200
+
+
+
 @app.route('/signup', methods=['POST'])
 def handle_signup():
     data =  request.json
-    existUser = User.query.filter_by(username=request.json["username"])
-    existEmail = User.query.filter_by(email=request.json["email"])
-    if not existUser and not existEmail:  
-        user1 = User(email=data["email"],username=data["username"], password=data["password"], is_active=False)
+    existUser = User.query.filter_by(username=data["username"])
+    existEmail = User.query.filter_by(email=data["email"])
+    
+    validemail = re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', data["email"])
+    if  (len(list(existUser))==0) and  (len(list(existEmail))==0) and data["username"]!="" and data["email"]!="" and validemail and validate_password(data["password"]) and (data["rpassword"]==data["password"]):
+        encodepass = hashlib.sha256(data["password"].encode("utf-8")).hexdigest()
+        user1 = User(email=data["email"],username=data["username"], password= encodepass, is_active=False)
         db.session.add(user1)
         db.session.commit()
-        users = User.query.all()
-        users = list(map(lambda x: x.serialize(), users))
-        response_body = {
-            "message":"User was created"
-        }
-        return jsonify(response_body), 200
+        response_body={}
+        response_body["message"]="User successfuly created"
+        return make_response(jsonify(response_body),200)
     else:
-        resp=make_response(jsonify("User Allready exist"),409)
-        return resp
+        response_error={"errors":{}}
+        if not(len(list(existUser))==0):
+            response_error["errors"]["User"] = "User already exist"
+        if not(len(list(existEmail))==0):
+            response_error["errors"]["Email"] = "Email already in use"
+        if  data["username"]=="":
+            response_error["errors"]["UserEmpty"] = "Empty username"  
+        if  data["email"]=="":
+            response_error["errors"]["EmailEmpty"] = "Empty email"    
+        if  data["password"]=="":
+            response_error["errors"]["PasswordEmpty"] = "Empty password"   
+        if not validemail and not data["email"]=="":
+            response_error["errors"]["InvaliEmail"] = "Invalid email"   
+        if not validate_password(data["password"]):
+            response_error["errors"]["InvaliPassword"] = "The password must have at least 8 characters,special symbols, number, uppercase and lowercase."     
+        if not (data["rpassword"]==data["password"]) and validate_password(data["password"]):
+            response_error["errors"]["PasswordMissMatch"] = "Passwords do not match."           
+        if not response_error=={}:
+            resp=make_response(jsonify(response_error),400)
+            return resp    
 
 
 
+@app.route('/login', methods=['POST'])
+def handle_login():
+    encodepass = hashlib.sha256(request.json["password"].encode("utf-8")).hexdigest()
+    user = User.query.filter_by(username=request.json["username"], password= encodepass).first()
+    useremail = User.query.filter_by(email=request.json["username"], password=encodepass).first()
+    if user is not None:
+        access_token=create_access_token(identity=user.username)
+        user.is_active=True;
+        db.session.commit()
+        return jsonify({"token":access_token,"user":user.username,"id":user.id}),200
+    elif useremail is not None:
+        access_token=create_access_token(identity=useremail.username)
+        return jsonify({"token":access_token,"user":useremail.username,"id":useremail.id}),200
+    else:       
+        return make_response(jsonify({"error":"Missing or Incorrect Credentials"}),401) 
+        
+
+
+
+@app.route('/user/<int:id>', methods=['DELETE'])
+def delete_user(id):
+    user = User.query.get([id])
+    db.session.delete(user)
+    db.session.commit()
+    users = User.query.all()
+    users = list(map(lambda x: x.serialize(), users))
+    response_body = {
+    "users":users
+    }
+    return jsonify(response_body), 200
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))

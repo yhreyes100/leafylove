@@ -4,7 +4,8 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Login } from "./pages/login";
-import { Singup } from "./pages/singup";
+import { Singup } from "./pages/signup";
+import { Profile } from "./pages/profile";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
@@ -14,6 +15,7 @@ import { Footer } from "./component/footer";
 import WelcomeSection from "./pages/landingPage";
 import { Library } from "./pages/library";
 import PlantBlog from "./pages/blog";
+import { Dashboard } from "./pages/dashboard";
 
 //create your first component
 const Layout = () => {
@@ -31,6 +33,8 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Login />} path="/login" />
                         <Route element={<Singup />} path="/signup" />
+                        <Route element={<Profile />} path="/profile" />
+                        <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<WelcomeSection />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
