@@ -1,10 +1,13 @@
 const getState = ({ getStore, getActions, setStore }) => {
-    let speciesapiUrl = `https://perenual.com/api/species-list?key=${process.env.APIKEY}&page=1`;
+    let speciesapiUrl = `https://perenual.com/api/species-list?key=sk-wHFC671c438acf92c7433&page=1`;
     
     return {
         store: {
             plantList: [],
             favoritePlantList: []
+            user: {
+                id
+            }
         },
         actions: {
             getPlantList: () => {
@@ -24,7 +27,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             addFavorite: (plant, Userid) => {
                 const store = getStore();
                 const isAlreadyFavorite = store.favoritePlantList.some((elem) => elem.id === plant.id);
-                
+                console.log(isAlreadyFavorite)
                 if (!isAlreadyFavorite) {
                     setStore({ favoritePlantList: [...store.favoritePlantList, plant] });
                 }

@@ -26,15 +26,17 @@ class User(db.Model):
 class PlantFavorites(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userid = db.Column(db.Integer, db.ForeignKey("user.id"))
-    plantid = db.Column(db.Integer, db.ForeignKey("plant.id"))
+    plantname = db.Column(db.String(250), nullable=False)
+    
     
     def __repr__(self):
-        return f'<PlantFavorites {self.userid}>'
+        return f'<PlantFavorites {self.plantname}>'
 
     def serialize(self):
         return {
             "id": self.id,
-            "usierid": self.userid,
-            "plantid": self.plantid
+            "userid": self.userid,
+            "plantname": self.plantname
             # do not serialize the password, its a security breach
         }
+
