@@ -22,6 +22,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return res.json()
 				})
 				.then((data) =>{
+					console.log("plantslist", data.data);
 					setStore({ plantList: data.data});
 				})
 			}
