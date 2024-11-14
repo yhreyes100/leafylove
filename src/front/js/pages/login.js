@@ -23,10 +23,12 @@ export const Login = () => {
           .then(data => {			 
 			if(data["error"])
 				setError(Object.entries(data))
-			else actions.setUser(data.user)
-			console.log(store.user)
-            localStorage.setItem("jwt-token",data.token)
-            navigate("/profile") 
+			else
+			{
+				actions.setUser(data.user)
+				localStorage.setItem("jwt-token",data.token)
+				navigate("/dashboard") 
+			}
           })
           .catch(error => {
               console.log(error);

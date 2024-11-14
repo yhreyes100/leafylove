@@ -143,6 +143,8 @@ def handle_login():
     useremail = User.query.filter_by(email=request.json["username"], password=encodepass).first()
     if user is not None:
         access_token=create_access_token(identity=user.username)
+        user.is_active=True;
+        db.session.commit()
         return jsonify({"token":access_token,"user":user.username,"id":user.id}),200
     elif useremail is not None:
         access_token=create_access_token(identity=useremail.username)

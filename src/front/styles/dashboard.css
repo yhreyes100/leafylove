@@ -1,0 +1,17 @@
+.dashboardcontainer{
+    margin-top: 50px;
+}
+.carddashboard{
+    width: 15rem;
+    margin-top: 5px;
+}
+.cbdashboard{
+    justify-content: center;
+    text-align: center;
+    color: #0a572a;
+    text-shadow: 4px 4px 5px black;
+}
+.carddashboard:hover{
+    transition: transform .2s; /* Animation */
+    width: 16rem;
+}
