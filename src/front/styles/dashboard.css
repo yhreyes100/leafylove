@@ -1,0 +1,12 @@
+.dashboardcontainer{
+    margin-top: 50px;
+}
+.carddashboard{
+    width: 18rem
+}
+.cbdashboard{
+    justify-content: center;
+    text-align: center;
+    color: #0a572a;
+    text-shadow: 4px 4px 5px black;
+}

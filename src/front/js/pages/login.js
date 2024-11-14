@@ -27,7 +27,7 @@ export const Login = () => {
 			{
 				actions.setUser(data.user)
 				localStorage.setItem("jwt-token",data.token)
-				navigate("/") 
+				navigate("/dashboard") 
 			}
           })
           .catch(error => {
