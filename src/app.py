@@ -10,7 +10,7 @@ from api.models import db,User
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+# from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
 
 # from models import Person
@@ -35,8 +35,8 @@ db.init_app(app)
 
 
 # Configura la extensión Flask-JWT-Extended
-app.config["JWT_SECRET_KEY"] = "super19"  # ¡Cambia las palabras "super-secret" por otra cosa!
-jwt = JWTManager(app)
+# app.config["JWT_SECRET_KEY"] = "super19"  # ¡Cambia las palabras "super-secret" por otra cosa!
+# jwt = JWTManager(app)
 
 CORS(app)
 

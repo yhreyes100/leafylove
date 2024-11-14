@@ -28,7 +28,15 @@ export const Library = () => {
                                 </div>
                             )}
                             <div className="card-body">
-                                <h5 className="card-title">{plant.common_name}</h5>
+                                <div className="d-flex justify-content-between">
+                                    <h5 className="card-title">{plant.common_name}</h5>
+                                    <button
+                                        className="btn btn-outline-success"
+                                        onClick={() => actions.addToFavorites(plant)}
+                                    >
+                                        <i className="fa-regular fa-heart"></i>
+                                    </button>
+                                </div>
                                 <h6 className="card-subtitle mb-2 text-muted">
                                     {plant.scientific_name.join(', ')}
                                 </h6>
@@ -49,7 +57,7 @@ export const Library = () => {
                                     )}
                                 </div>
                             </div>
-                            <div className="card-footer bg-transparent">
+                            {/* <div className="card-footer bg-transparent">
                                 <Link
                                     to={`/plant/${plant.id}`}
                                     className="btn btn-primary me-2"
@@ -60,11 +68,11 @@ export const Library = () => {
                                     className="btn btn-outline-success"
                                     onClick={() => actions.addToFavorites(plant)}
                                 >
-                                    Add to Favorites
-                                </button>
-                                {/* <button onClick={() => actions.addFavorite(plant)}>Add to Favorites</button>
+                                    Add to Favorites */}
+                            {/* </button> */}
+                            {/* <button onClick={() => actions.addFavorite(plant)}>Add to Favorites</button>
                                 <button onClick={() => actions.removeFavorite(plant.id)}>Remove from Favorites</button> */}
-                            </div>
+                            {/* </div> */}
                         </div>
                     </div>
                 ))}
