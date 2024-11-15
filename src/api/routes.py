@@ -20,3 +20,4 @@ def get_favorite_plant_list():
 
     return jsonify(favorite_plant_list_sr), 200
 
+

@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
+
+* {
+    margin:0;
+    padding:0
+}
+a,a:hover{
+  text-decoration: none;
+}
+.myform-area{
+  overflow: hidden;
+  padding: 60px 0;
+  background: #f4fffe;
+  position: relative;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.myform-area .form-area{
+  position: relative;
+  background: white;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  box-shadow: 0 0 40px 0 #e1e1e1;
+}
+.logimg{
+  object-fit: cover;
+  width:100%;
+  height:100%;
+   mix-blend-mode: multiply;
+}
+
+.ginput,.glabel{
+  font-weight: bold;    
+  color:#1f9c53;    
+}
+
+.rbuttom{
+  margin-top: 20px;
+  width: 100%;
+  text-shadow: 3px 3px 4px black;
+}
+.sitename{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #0a572a;
+  text-shadow: 4px 4px 5px black;
+}
+.form-group{
+  margin-bottom: 10px;
+}
+.link{
+  margin-bottom: 20px;
+}
+.pb-4{
+  text-shadow: 3px 3px 4px black;
+}
+.alertlg{
+text-align: center;
+/*text-shadow: 3px 3px 4px black;*/
+font-weight: bold;
+}
