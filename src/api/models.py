@@ -6,19 +6,14 @@ db = SQLAlchemy()
 #     db.Column("plant_id", db.Integer, db.ForeignKey("plant_table.id"), primary_key=True),
 #     db.Column("user_id", db.Integer, db.ForeignKey("user_table.id"), primary_key=True)
 # )
-
-
 class User(db.Model):
-    __tablename__="users"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(256), unique=False, nullable=False)
-    is_active = db.Column(db.Boolean, unique=False, nullable=False)
-    firstname = db.Column(db.String(250), nullable=False)
-    lastname = db.Column(db.String(250), nullable=False)
+    password = db.Column(db.String(80), nullable=False)
+    is_active = db.Column(db.Boolean(), nullable=False)
+    username = db.Column(db.String(250), unique=True, nullable=False)
     plants = db.relationship("Plant", back_populates="user")
     favorites=db.relationship("Favorite",back_populates="user")
-
     def __repr__(self):
         return f'<User {self.email}>'
     
@@ -26,17 +21,16 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
-            "firstname": self.firstname,
-            "lastname":self.lastname,
+            "username": self.username,
+            "password": self.password,
             "is_active": self.is_active,
             "plants":[plant.serialize() for plant in self.plants],
             "favorites": [favorite.serialize() for favorite in self.favorites]
-            # do not serialize the password, its a security breach
         }
+
 class Favorite(db.Model):
-    _tablename_="favorites"
     id=db.Column(db.Integer,primary_key=True)
-    user_id=db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user_id=db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     api_plant_id=db.Column(db.Integer, nullable=False)
     common_name=db.Column(db.String(250),nullable=False)
     scientific_name=db.Column(db.String(250),nullable=True)
@@ -55,7 +49,6 @@ class Favorite(db.Model):
         }
 
 class Plant(db.Model):
-    __tablename__="plants"
     id=db.Column(db.Integer,primary_key=True)
     common_name=db.Column(db.String(250),nullable=False)
     scientific_name=db.Column(db.String(250),nullable=True)
@@ -66,7 +59,7 @@ class Plant(db.Model):
     default_image_original_url=db.Column(db.String(500),nullable=True)
     default_image_medium_url=db.Column(db.String(500),nullable=True)
 
-    users_id=db.Column(db.Integer, db.ForeignKey("users.id"))
+    users_id=db.Column(db.Integer, db.ForeignKey("user.id"))
     user=db.relationship("User", back_populates="plants")
 
     def __repr__(self):
