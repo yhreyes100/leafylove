@@ -9,12 +9,14 @@ export const Dashboard = () => {
         <div className="container dashboardcontainer">
             <div className="row">
                 <div className="col-lg-3 col-sm-6">
+                    <Link to={"/profile"}>
                     <div className="card carddashboard">
                         <img className="card-img-top" src="https://thumbs.dreamstime.com/b/icono-de-perfil-usuario-bot%C3%B3n-verde-elegante-ilustraci%C3%B3n-vectorial-aislado-en-167325528.jpg" alt="Card image cap"/>
                             <div className="card-body cbdashboard">
                                 <h5 className="card-title">My Profile</h5>
                             </div>
                     </div>
+                    </Link>
                 </div>
                 <div className="col-lg-3 col-sm-6">
                     <div className="card carddashboard">

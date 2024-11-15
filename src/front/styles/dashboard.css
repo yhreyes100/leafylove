@@ -12,6 +12,6 @@
     text-shadow: 4px 4px 5px black;
 }
 .carddashboard:hover{
-    transition: transform .2s; /* Animation */
+    transition: transform .3s; /* Animation */
     width: 16rem;
 }

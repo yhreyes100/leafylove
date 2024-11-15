@@ -53,7 +53,7 @@ export const Profile = () => {
 							</div>
 							<button className="btn btn-success rbuttom" onClick={() => profileFetch()} >Update</button>
                             <div className="text-center pb-4 mt-4 link">
-								     <Link to="/">Go Home</Link>
+								     <Link to="/dashboard">Go Dashboard</Link>
 							</div>
 						</div>
 					</div>
