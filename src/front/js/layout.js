@@ -16,6 +16,8 @@ import WelcomeSection from "./pages/landingPage";
 import { Library } from "./pages/library";
 import PlantBlog from "./pages/blog";
 import { Dashboard } from "./pages/dashboard";
+import { Favorites } from "./pages/favorites";
+
 
 //create your first component
 const Layout = () => {
@@ -40,6 +42,7 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Library />} path="/library" />
                         <Route element={<PlantBlog />} path="/plantblog" />
+                        <Route element={<Favorites />} path="/favorites" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
