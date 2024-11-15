@@ -15,7 +15,7 @@ export const Navbar = () => {
 				</form>
 				<div className="ml-auto">
 					<Link to="/demo">
-						<button className="btn btn-success">Sign Up/Register <i class="fa-solid fa-user"></i></button>
+						<button className="btn btn-success">Sign Up/Register <i className="fa-solid fa-user"></i></button>
 					</Link>
 				</div>
 			</div>
