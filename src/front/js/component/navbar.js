@@ -20,7 +20,7 @@ export const Navbar = () => {
 					</Link>
 					<Link to="/signup">
 						<button className="btn btn-success">Sign Up/Register <i class="fa-solid fa-user"></i></button>
-					</Link>
+					</Link>	
 				</div>
 			</div>
 		</nav>
