@@ -14,7 +14,22 @@ export const Profile = () => {
 	const profileFetch = () => {
 	}
 	useEffect(()=>{
-
+		const getUser= async ()=>{
+			const resp = await fetch(store.urlFetchApi+"/user",{
+				method:"GET",
+				headers:{
+					"Content-Type":"application/json",
+					"Authorization":'Bearer '+ localStorage.getItem('jwt-token')
+				}
+			})
+			.then(res => res.json())
+			.then(data => {
+			   console.log(data.user)
+			})
+			.catch(err => console.error(err));    
+		   
+		   }
+		   getUser();
     },[])
 	return (
 		<section className="myform-area">
@@ -26,7 +41,7 @@ export const Profile = () => {
 							
 						</div>
 						<div className="col-lg-6 col-sm-6 content">
-							<h2 className="sitename">LeafyLove    User Profile</h2>
+							<h2 className="sitename">{store.user} User Profile</h2>
 							<div className="form-floating form-group">
 								<input type="text" className="form-control border-0 border-bottom border-success shadow-none text-success fw-bold ginput"
 									onChange={(e) => { setUserName(e.target.value) }}
