@@ -5,6 +5,14 @@ import { useNavigate, Link } from "react-router-dom";
 export const Dashboard = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const [passw, setPassw] = useState("")
+	const [rpassw, setRPassw] = useState("")
+	const [email, setEmail] = useState("")
+	const [userName, setUserName] = useState("")
+    const [userId, setUserId] = useState("")
+    useEffect(()=>{
+
+    },[])
     return (
         <div className="container dashboardcontainer">
             <div className="row">
@@ -42,8 +50,8 @@ export const Dashboard = () => {
                     <Link to="">
                         <div className="card carddashboard">
                             <img className="card-img-top" src="https://t4.ftcdn.net/jpg/00/32/60/43/240_F_32604304_CSYfu3eLnfb9HpPe9fV8Jktx2UFhWtwY.jpg" alt="Card image cap"/>
-                                <div className="card-body cbdashboard">
-                                    <h5 className="card-title">My Search</h5>
+                                <div className="card-body carddashboard">
+                                    <h5 className="card-title cbdashboard">My Search</h5>
                                 </div>
                         </div>
                     </Link>    
