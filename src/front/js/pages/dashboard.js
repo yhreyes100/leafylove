@@ -9,7 +9,6 @@ export const Dashboard = () => {
         <div className="container dashboardcontainer">
             <div className="row">
                 <div className="col-lg-3 col-sm-6">
-
                     <Link to="/profile">
                         <div className="card carddashboard">
                             <img className="card-img-top" src="https://thumbs.dreamstime.com/b/icono-de-perfil-usuario-bot%C3%B3n-verde-elegante-ilustraci%C3%B3n-vectorial-aislado-en-167325528.jpg" alt="Card image cap"/>
@@ -20,7 +19,7 @@ export const Dashboard = () => {
                     </Link>    
                 </div>
                 <div className="col-lg-3 col-sm-6">
-                <Link to="/profile">
+                <Link to="/library">
                     <div className="card carddashboard">
                         <img className="card-img-top" src="https://thumbs.dreamstime.com/b/3d-green-checkmark-chrome-checkbox-23476468.jpg" alt="Card image cap"/>
                             <div className="card-body cbdashboard">
