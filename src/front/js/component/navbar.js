@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logoImg from "../../img/plantapp.png";
-
+import { Context } from "../store/appContext";
 export const Navbar = () => {
+	const { store, actions } = useContext(Context);
 	return (
 		<nav className="navbar navbar-light bg-light">
 			<div className="container">
@@ -15,12 +16,20 @@ export const Navbar = () => {
 				</form>
 				<div className="ml-auto">
 
-					<Link to="/library">
-						<button className="btn btn-success me-2">Plant Blog </button>
+					<Link to="/dashboard">
+						<button className="btn btn-success me-2">Dashboard </button>
 					</Link>
-					<Link to="/signup">
+					{
+						store.user==""?
+						<Link to="/signup">
 						<button className="btn btn-success">Sign Up/Register <i class="fa-solid fa-user"></i></button>
-					</Link>	
+						</Link>
+						:
+						<Link to="/logoff">
+						<button className="btn btn-success">{store.user} <i class="fa-solid fa-user"></i></button>
+						</Link>		
+					}
+					
 				</div>
 			</div>
 		</nav>
