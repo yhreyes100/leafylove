@@ -4,6 +4,10 @@ import logoImg from "../../img/plantapp.png";
 import { Context } from "../store/appContext";
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
+	useEffect(()=>{
+	if(localStorage.getItem("user")!=null)
+		actions.setUser(localStorage.getItem("user"))	
+	},[])
 	return (
 		<nav className="navbar navbar-light bg-light">
 			<div className="container">

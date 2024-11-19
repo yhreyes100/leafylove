@@ -4,30 +4,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 	let guideapiUrl = "https://perenual.com/api/species-care-guide-list?key=sk-wHFC671c438acf92c7433&page=1&species_id=1&page=1"
 	return {
 		store: {
-			urlFetchApi:"https://expert-space-carnival-pg94q459jr5cggr-3001.app.github.dev",
-			user:"",
+			urlFetchApi: "https://expert-space-carnival-pg94q459jr5cggr-3001.app.github.dev",
+			user: "",
 			plantList: [],
 			favoritePlantList: []
 		},
 		actions: {
-			setUser(value){
-				setStore({user:value});
+			setUser(value) {
+				setStore({ user: value });
 			},
 			getPlantList: () => {
 				fetch(speciesapiUrl)
-				.then((res) => {
-					if(!res.ok){
-						throw new Error()
-					}
-					return res.json()
-				})
-				.then((data) =>{
-					console.log("plantslist", data.data);
-					setStore({ plantList: data.data});
-				})
+					.then((res) => {
+						if (!res.ok) {
+							throw new Error()
+						}
+						return res.json()
+					})
+					.then((data) => {
+						console.log("plantslist", data.data);
+						setStore({ plantList: data.data });
+					})
 			}
 
-			
+
 			// exampleFunction: () => {
 			// 	getActions().changeColor(0, "green");
 			// },
