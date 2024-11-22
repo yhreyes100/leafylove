@@ -51,12 +51,22 @@ class Favorite(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            # Do the same as above for line 38 to 47
+            "user_id": self.user_id,
+            "api_plant_id":self.api_plant_id,
+            "common_name": self.common_name,
+            "scientific_name":self.scientific_name,
+            "other_name":self.other_name,
+            "cycle":self.cycle,
+            "watering":self.watering,
+            "sunlight":self.sunlight, 
+            "default_image_original_url":self.default_image_original_url,
+            "default_image_medium_url":self.default_image_medium_url,
         }
 
 class Plant(db.Model):
     __tablename__="plants"
     id=db.Column(db.Integer,primary_key=True)
+    api_plant_id=db.Column(db.Integer, nullable=False)
     common_name=db.Column(db.String(250),nullable=False)
     scientific_name=db.Column(db.String(250),nullable=True)
     other_name=db.Column(db.String(250),nullable=True)
@@ -75,10 +85,14 @@ class Plant(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "api_plant_id":self.api_plant_id,
             "common_name": self.common_name,
-            "scientific__name": self.scientific_name,
+            "scientific_name":self.scientific_name,
             "other_name":self.other_name,
-            "default_image":self.default_image,
+            "cycle":self.cycle,
             "watering":self.watering,
+            "sunlight":self.sunlight, 
+            "default_image_original_url":self.default_image_original_url,
+            "default_image_medium_url":self.default_image_medium_url,
         }
-    # line 59 through 69 make sure i have it serialized
+  
