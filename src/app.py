@@ -153,6 +153,13 @@ def handle_login():
         return make_response(jsonify({"error":"Missing or Incorrect Credentials"}),401) 
         
 
+@app.route('/logoff', methods=['POST'])
+@jwt_required()
+def handle_logoff():
+    user = User.query.filter_by(username=request.json["username"]).first()
+    user.is_active=False;
+    db.session.commit()
+    return jsonify({"message":"User successfuly logoff"}),200
 
 
 @app.route('/user/<int:id>', methods=['DELETE'])

@@ -12,6 +12,8 @@ export const Singup = () => {
 	const [userName, setUserName] = useState("")
 	const [error, setError] = useState("");
 	const [message, setMessage] = useState("");
+	const navigate = useNavigate();
+
 	const signupFetch = () => {
 		fetch(store.urlFetchApi + '/signup', {
 			method: "POST",
@@ -31,6 +33,9 @@ export const Singup = () => {
 				if(data["message"]){
 					setMessage(Object.entries(data))
 					setError("")
+					setTimeout(() => {
+						navigate('/login');
+					}, 2000);
 				}
 				console.log(data);
 			})

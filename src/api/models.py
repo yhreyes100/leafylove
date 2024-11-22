@@ -7,9 +7,10 @@ db = SQLAlchemy()
 #     db.Column("user_id", db.Integer, db.ForeignKey("user_table.id"), primary_key=True)
 # )
 class User(db.Model):
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    password = db.Column(db.String(256), nullable=False)
     is_active = db.Column(db.Boolean(), nullable=False)
     username = db.Column(db.String(250), unique=True, nullable=False)
     plants = db.relationship("Plant", back_populates="user")
@@ -22,15 +23,15 @@ class User(db.Model):
             "id": self.id,
             "email": self.email,
             "username": self.username,
-            "password": self.password,
             "is_active": self.is_active,
             "plants":[plant.serialize() for plant in self.plants],
             "favorites": [favorite.serialize() for favorite in self.favorites]
         }
 
 class Favorite(db.Model):
+    __tablename__ = "favorites"
     id=db.Column(db.Integer,primary_key=True)
-    user_id=db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_id=db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     api_plant_id=db.Column(db.Integer, nullable=False)
     common_name=db.Column(db.String(250),nullable=False)
     user=db.relationship("User", back_populates="favorites")
@@ -38,11 +39,22 @@ class Favorite(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            # Do the same as above for line 38 to 47
+            "user_id": self.user_id,
+            "api_plant_id":self.api_plant_id,
+            "common_name": self.common_name,
+            "scientific_name":self.scientific_name,
+            "other_name":self.other_name,
+            "cycle":self.cycle,
+            "watering":self.watering,
+            "sunlight":self.sunlight, 
+            "default_image_original_url":self.default_image_original_url,
+            "default_image_medium_url":self.default_image_medium_url,
         }
 
 class Plant(db.Model):
+    __tablename__ = "plants"
     id=db.Column(db.Integer,primary_key=True)
+    api_plant_id=db.Column(db.Integer, nullable=False)
     common_name=db.Column(db.String(250),nullable=False)
     scientific_name=db.Column(db.String(250),nullable=True)
     other_name=db.Column(db.String(250),nullable=True)
@@ -52,7 +64,7 @@ class Plant(db.Model):
     default_image_original_url=db.Column(db.String(500),nullable=True)
     default_image_medium_url=db.Column(db.String(500),nullable=True)
 
-    users_id=db.Column(db.Integer, db.ForeignKey("user.id"))
+    user_id=db.Column(db.Integer, db.ForeignKey("users.id"))
     user=db.relationship("User", back_populates="plants")
 
     def __repr__(self):
@@ -61,10 +73,13 @@ class Plant(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "api_plant_id":self.api_plant_id,
             "common_name": self.common_name,
-            "scientific__name": self.scientific_name,
+            "scientific_name":self.scientific_name,
             "other_name":self.other_name,
-            "default_image":self.default_image,
+            "cycle":self.cycle,
             "watering":self.watering,
+            "sunlight":self.sunlight, 
+            "default_image_original_url":self.default_image_original_url,
+            "default_image_medium_url":self.default_image_medium_url,
         }
-    # line 59 through 69 make sure i have it serialized
