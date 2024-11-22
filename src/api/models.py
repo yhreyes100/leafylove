@@ -9,7 +9,7 @@ db = SQLAlchemy()
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    password = db.Column(db.String(256), nullable=False)
     is_active = db.Column(db.Boolean(), nullable=False)
     username = db.Column(db.String(250), unique=True, nullable=False)
     plants = db.relationship("Plant", back_populates="user")
@@ -22,7 +22,6 @@ class User(db.Model):
             "id": self.id,
             "email": self.email,
             "username": self.username,
-            "password": self.password,
             "is_active": self.is_active,
             "plants":[plant.serialize() for plant in self.plants],
             "favorites": [favorite.serialize() for favorite in self.favorites]
