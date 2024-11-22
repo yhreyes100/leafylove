@@ -7,6 +7,7 @@ db = SQLAlchemy()
 #     db.Column("user_id", db.Integer, db.ForeignKey("user_table.id"), primary_key=True)
 # )
 class User(db.Model):
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
@@ -28,8 +29,9 @@ class User(db.Model):
         }
 
 class Favorite(db.Model):
+    __tablename__ = "favorites"
     id=db.Column(db.Integer,primary_key=True)
-    user_id=db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_id=db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     api_plant_id=db.Column(db.Integer, nullable=False)
     common_name=db.Column(db.String(250),nullable=False)
     scientific_name=db.Column(db.String(250),nullable=True)
@@ -57,6 +59,7 @@ class Favorite(db.Model):
         }
 
 class Plant(db.Model):
+    __tablename__ = "plants"
     id=db.Column(db.Integer,primary_key=True)
     api_plant_id=db.Column(db.Integer, nullable=False)
     common_name=db.Column(db.String(250),nullable=False)
@@ -68,7 +71,7 @@ class Plant(db.Model):
     default_image_original_url=db.Column(db.String(500),nullable=True)
     default_image_medium_url=db.Column(db.String(500),nullable=True)
 
-    users_id=db.Column(db.Integer, db.ForeignKey("user.id"))
+    user_id=db.Column(db.Integer, db.ForeignKey("users.id"))
     user=db.relationship("User", back_populates="plants")
 
     def __repr__(self):
