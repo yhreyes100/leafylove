@@ -10,10 +10,11 @@ export const AddPlant = props => {
     const [searchTerm, setSearchTerm] = useState("");
 
     const addPlantToGrid = (plant) => {
+        console.log(plant)
         let localGrid = [...store.grid];
         localGrid[params.ind].plant = plant;
         actions.setGrid(localGrid);
-        navigate("/");
+        navigate("/my-garden");
     }
 
     return (
@@ -26,13 +27,13 @@ export const AddPlant = props => {
             />
 
             <ul className="search-results">
-                {searchTerm && store.plants.filter(
-                    (plant) => plant.name.startsWith(searchTerm))
-                    .map((plantResult) => <li onClick={() => addPlantToGrid(plantResult)}>{plantResult.name}</li>)
+                {searchTerm && store.plantLibrary.filter(
+                    (plant) => plant.commonName.toLowerCase().startsWith(searchTerm))
+                    .map((plantResult) => <li onClick={() => addPlantToGrid(plantResult)}>{plantResult.commonName}</li>)
                 }
             </ul>
 
-            <Link to="/">
+            <Link to="/my-garden">
                 <span className="btn btn-primary btn-lg" href="#" role="button">
                     Back to Grid
                 </span>

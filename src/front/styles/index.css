@@ -16,4 +16,27 @@
     box-shadow: 0 0 15px 5px rgba(13, 227, 227, 0.7); 
     transition: box-shadow 0.3s ease; 
   }
+
+  .gardenGrid .col {
+    border-radius: 5px;
+    height: 100px;
+    width: 100px;
+    border: 1px solid lightgreen;
+    box-shadow: 1px 3px 5px green;
+    margin: 6px;
+}
+
+.shade {
+    background: lightgray;
+}
+
+.search-results li {
+    box-shadow: 1px 3px 3px lightgray;
+    margin: 6px 0;
+}
   
+.gardenGrid .col img {
+  width: 100%;
+  height: auto;
+
+}
