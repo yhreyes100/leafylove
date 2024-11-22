@@ -34,13 +34,6 @@ class Favorite(db.Model):
     user_id=db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     api_plant_id=db.Column(db.Integer, nullable=False)
     common_name=db.Column(db.String(250),nullable=False)
-    scientific_name=db.Column(db.String(250),nullable=True)
-    other_name=db.Column(db.String(250),nullable=True)
-    cycle=db.Column(db.String(250),nullable=True)
-    watering=db.Column(db.String(250),nullable=True)
-    sunlight=db.Column(db.String(250),nullable=True) 
-    default_image_original_url=db.Column(db.String(500),nullable=True)
-    default_image_medium_url=db.Column(db.String(500),nullable=True)
     user=db.relationship("User", back_populates="favorites")
 
     def serialize(self):
@@ -90,4 +83,3 @@ class Plant(db.Model):
             "default_image_original_url":self.default_image_original_url,
             "default_image_medium_url":self.default_image_medium_url,
         }
-  

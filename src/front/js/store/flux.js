@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			urlFetchApi: process.env.BACKEND_URL,
-			user:"",
+			user: "",
 			plantList: [],
 			favoritePlantList: [],
 			grid: [],
@@ -578,8 +578,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					comments:
 						"The avocado is a tropical tree that will grow and even produce fruit in zone 9, but needs protection from freezes. Edible fruit are produced on trees in warm climates in a fertile, well drained soil. In cold climates people will often plant the single seed that comes from the fruit and grow from the seed a tender tropical on the patio during the summer months."
 				}
-			]
-
+			],
 		},
 		actions: {
 			setGrid: (newGrid) => {
@@ -587,23 +586,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const newGridJSON = JSON.stringify(newGrid);
 				localStorage.setItem("grid", newGridJSON);
 			},
-			setUser(value){
-				setStore({user:value});
+			setUser(value) {
+				setStore({ user: value });
 			},
 			getPlantList: () => {
 				fetch(speciesapiUrl)
-				.then((res) => {
-					if(!res.ok){
-						throw new Error()
-					}
-					return res.json()
-				})
-				.then((data) =>{
-					console.log("plantslist", data.data);
-					setStore({ plantList: data.data});
-				})
-			}
+					.then((res) => {
+						if (!res.ok) {
+							throw new Error();
+						}
+						return res.json();
+					})
+					.then((data) => {
+						setStore({ plantList: data.data });
+					})
+					.catch(error => console.error("Error fetching plant list:", error));
+			},
 
+			addFavorite: (plant, Userid) => {
+				const store = getStore();
+				const isAlreadyFavorite = store.favoritePlantList.some((elem) => elem.id === plant.id);
+				console.log(isAlreadyFavorite)
+				if (!isAlreadyFavorite) {
+					setStore({ favoritePlantList: [...store.favoritePlantList, plant] });
+				}
+			},
+
+			removeFavorite: (id) => {
+				const store = getStore();
+				const updatedFavorites = store.favoritePlantList.filter((elem) => elem.id !== id);
+				setStore({ favoritePlantList: updatedFavorites });
+			}
 		}
 	};
 };
