@@ -6,6 +6,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			urlFetchApi: "https://expert-space-carnival-pg94q459jr5cggr-3001.app.github.dev",
 			user: "",
+			urlFetchApi: process.env.BACKEND_URL,
+			user:"",
 			plantList: [],
 			favoritePlantList: []
 		},
