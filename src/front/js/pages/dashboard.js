@@ -67,7 +67,7 @@ export const Dashboard = () => {
                     </Link>    
                 </div>
                 <div className="col-lg-2 col-sm-12">
-                    <Link to="">
+                    <Link to="/my-garden">
                         <div className="card carddashboard">
                             <img className="card-img-top" src="https://img.freepik.com/premium-photo/picture-plant-with-green-leaves-white-background_605423-27920.jpg" alt="Card image cap"/>
                                 <div className="card-body cbdashboard">

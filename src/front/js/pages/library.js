@@ -9,7 +9,7 @@ export const Library = () => {
     return (
         <div className="container py-4">
             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                {store.plantList.slice(0, 10).map((plant) => (
+                {store.plantList.map((plant) => (
                     <div className="col" key={plant.id}>
                         <div className="card h-100">
                             {plant.default_image ? (
