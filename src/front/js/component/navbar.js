@@ -22,7 +22,7 @@ export const Navbar = () => {
 						</Link>
 						:
 						<Link to="/logoff">
-						<button className="btn btn-success">{store.user} <i class="fa-solid fa-user"></i></button>
+						<button className="btn btn-success">{store.user.username} <i class="fa-solid fa-user"></i></button>
 						</Link>		
 					}
 					

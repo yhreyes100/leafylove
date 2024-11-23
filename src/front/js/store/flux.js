@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			urlFetchApi: process.env.BACKEND_URL,
-			user: "",
+			user: {},
 			plantList: [],
 			favoritePlantList: [],
 			grid: [],
@@ -603,9 +603,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.error("Error fetching plant list:", error));
 			},
 
-			addFavorite: (plant, Userid) => {
+			addFavorite: (plant, userId) => {
 				const store = getStore();
-				const isAlreadyFavorite = store.favoritePlantList.some((elem) => elem.id === plant.id);
+				const isAlreadyFavorite = store.favoritePlantList.some((elem) => elem.commonName === plant.commonName);
 				console.log(isAlreadyFavorite)
 				if (!isAlreadyFavorite) {
 					setStore({ favoritePlantList: [...store.favoritePlantList, plant] });
