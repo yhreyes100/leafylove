@@ -16,11 +16,12 @@ export const Profile = () => {
 	useEffect(()=>{
 		const getUser= async ()=>{
 			const resp = await fetch(store.urlFetchApi+"/user",{
-				method:"GET",
+				method:"POST",
 				headers:{
 					"Content-Type":"application/json",
 					"Authorization":'Bearer '+ localStorage.getItem('jwt-token')
-				}
+				},
+				body: JSON.stringify({"username":store.user}),
 			})
 			.then(res => res.json())
 			.then(data => {
@@ -37,9 +38,6 @@ export const Profile = () => {
 				<div className="row">
 					<div className="col-lg-2"></div>
 					<div className="col-lg-8 col-sm-12 row justify-content-center content">
-						<div className="col-lg-6 col-sm-6 content">
-							
-						</div>
 						<div className="col-lg-6 col-sm-6 content">
 							<h2 className="sitename">{store.user} User Profile</h2>
 							<div className="form-floating form-group">

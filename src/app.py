@@ -145,10 +145,10 @@ def handle_login():
         access_token=create_access_token(identity=user.username)
         user.is_active=True;
         db.session.commit()
-        return jsonify({"token":access_token,"user":user.username,"id":user.id}),200
+        return jsonify({"token":access_token,"id":user.id}),200
     elif useremail is not None:
         access_token=create_access_token(identity=useremail.username)
-        return jsonify({"token":access_token,"user":useremail.username,"id":useremail.id}),200
+        return jsonify({"token":access_token,"id":useremail.id}),200
     else:       
         return make_response(jsonify({"error":"Missing or Incorrect Credentials"}),401) 
         
@@ -174,15 +174,17 @@ def delete_user(id):
     }
     return jsonify(response_body), 200
 
-@app.route('/user', methods=['GET'])
+@app.route('/user/<int:id>', methods=['GET'])
 @jwt_required()
-def get_user():
-    logged_user = get_jwt_identity();
-    user = User.query.filter_by(username=logged_user).first()
-    response_body = {
-    "user":user
-    }
-    return jsonify(response_body), 200
+def get_user(id):
+    user = User.query.get(id)
+    if user is not None:
+        response_body = {
+        "user":user.serialize()
+        }
+        return jsonify(response_body), 200
+    else:
+         return make_response(jsonify({"error":"Not found"}),404)  
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

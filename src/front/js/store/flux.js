@@ -6,14 +6,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			urlFetchApi: "https://expert-space-carnival-pg94q459jr5cggr-3001.app.github.dev",
 			user: "",
+			email: "",
+			id: null,
 			urlFetchApi: process.env.BACKEND_URL,
-			user:"",
 			plantList: [],
 			favoritePlantList: []
 		},
 		actions: {
 			setUser(value) {
 				setStore({ user: value });
+			},
+			setEmail(value) {
+				setStore({ email: value });
+			},
+			setId(value) {
+				setStore({ id: value });
 			},
 			getPlantList: () => {
 				fetch(speciesapiUrl)
@@ -27,9 +34,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log("plantslist", data.data);
 						setStore({ plantList: data.data });
 					})
+			},
+			getUserInfo(){
+				fetch(getStore().urlFetchApi+"/user/"+localStorage.getItem('id'),{
+					method:"GET",
+					headers:{
+						"Content-Type":"application/json",
+						"Authorization":'Bearer '+ localStorage.getItem('jwt-token')
+					}
+				})
+				.then(res => res.json())
+				.then(data => {
+
+				   console.log(data)
+				})
+				.catch(err => console.error(err));    
 			}
-
-
 			// exampleFunction: () => {
 			// 	getActions().changeColor(0, "green");
 			// },

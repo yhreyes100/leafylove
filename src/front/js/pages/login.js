@@ -26,7 +26,8 @@ export const Login = () => {
 			else
 			{
 				localStorage.setItem("jwt-token",data.token)
-				localStorage.setItem("user",data.user)
+				localStorage.setItem("id",data.id)
+				actions.getUserInfo();
 				navigate("/dashboard") 
 			}
           })
