@@ -18,12 +18,16 @@
   }
 
   .gardenGrid .col {
-    border-radius: 5px;
-    height: 100px;
+    background-color: #131111af;
+    border-radius: 3px;
+    height: 110px;
     width: 100px;
     border: 1px solid lightgreen;
     box-shadow: 1px 3px 5px green;
-    margin: 6px;
+    margin: 7px;
+
+  
+
 }
 
 .shade {
@@ -40,3 +44,11 @@
   height: auto;
 
 }
+.garden {
+  background-image: url('https://img.freepik.com/premium-photo/soil-with-mineral-fertilizers-gardening-texture-background-ground-heap-pattern-dirt-earth-garden-peat-wallpaper-top-view_162695-1433.jpg'); /* Path to the image */
+  background-size: cover; /* Ensures the image covers the entire area */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat;
+
+}
+
