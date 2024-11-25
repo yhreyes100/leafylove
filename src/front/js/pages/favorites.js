@@ -6,11 +6,9 @@ export const Favorites = () => {
         <div>
             <h1>Favorited Plants</h1>
             {
-                actions.favoritePlantList && actions.favoritePlantList.length &&
-                actions.favoritePlantList.map((item, i) => {
+                store.favoritePlantList && store.favoritePlantList.map((item, i) => {
                     return (
                         <div key={i} style={{ maxHeight: "350px" }}>
-                            hello
                             <li className="search-box search-results p-0">
                                 <div
                                     className="card  "

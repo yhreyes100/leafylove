@@ -14,11 +14,12 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import WelcomeSection from "./pages/landingPage";
 import { Library } from "./pages/library";
-import PlantBlog from "./pages/blog";
+import PlantBlog from "./pages/plantblog";
 import { Dashboard } from "./pages/dashboard";
 import { Favorites } from "./pages/favorites";
 import { MyGarden } from "./pages/myGarden";
 import { AddPlant } from "./component/addPlant";
+
 
 
 //create your first component
