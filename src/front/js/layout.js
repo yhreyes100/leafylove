@@ -14,11 +14,12 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import WelcomeSection from "./pages/landingPage";
 import { Library } from "./pages/library";
-import PlantBlog from "./pages/blog";
+import PlantBlog from "./pages/plantblog";
 import { Dashboard } from "./pages/dashboard";
 import { Favorites } from "./pages/favorites";
 import { MyGarden } from "./pages/myGarden";
 import { AddPlant } from "./component/addPlant";
+
 
 
 //create your first component
@@ -43,7 +44,7 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Library />} path="/library" />
-                        <Route element={<SearchPlant />} path="/searchPlant" />
+                        <Route element={<SearchPlant />} path="/searchplant" />
                         <Route element={<PlantBlog />} path="/plantblog" />
                         <Route element={<Favorites />} path="/favorites" />
                         <Route element={ <MyGarden />} path="/my-garden" />
