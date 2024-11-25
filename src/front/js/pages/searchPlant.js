@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { PopupSearch } from "../component/popupSearch";
+// import { PopupSearch } from "../component/popupSearch";
 
 export const SearchPlant = () => {
 	const { store, actions } = useContext(Context);
@@ -88,7 +88,7 @@ export const SearchPlant = () => {
 	const [filteredList, setFilteredList] = useState(null);
 	const [searchInputs, setSearchInputs] = useState({
 		name: "",
-		zone: null,
+		zone: "",
 		color: ""
 	});
 
@@ -170,7 +170,7 @@ export const SearchPlant = () => {
 							type="checkbox"
 							id="all"
 							value="all"
-							onClick={() => onFilterChange("ALL")}
+							onChange={() => onFilterChange("ALL")}
 							checked={activeFilter.length === filterList.length}
 						/>
 						<label className="form-check-label" htmlFor="all">
@@ -184,7 +184,7 @@ export const SearchPlant = () => {
 								type="checkbox"
 								id={filter.id}
 								value={filter.value}
-								onClick={e => onFilterChange(filter.value)}
+								onChange={e => onFilterChange(filter.value)}
 								checked={activeFilter.includes(filter.value)}
 							/>
 							<label className="form-check-label mr-3" htmlFor={filter.id}>
