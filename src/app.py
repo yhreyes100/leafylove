@@ -103,7 +103,7 @@ def handle_signup():
     existUser = User.query.filter_by(username=data["username"])
     existEmail = User.query.filter_by(email=data["email"])
     
-    validemail = re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', data["email"])
+    # validemail = re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', data["email"])
     # if  (len(list(existUser))==0) and  (len(list(existEmail))==0) and data["username"]!="" and data["email"]!="" and validemail and validate_password(data["password"]) and (data["rpassword"]==data["password"]):
         # encodepass = hashlib.sha256(data["password"].encode("utf-8")).hexdigest()
     user1 = User(email=data["email"],username=data["username"], password= data["password"], is_active=False)
