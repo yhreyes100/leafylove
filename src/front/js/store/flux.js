@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			urlFetchApi: process.env.BACKEND_URL,
-			user: {},
+			user: localStorage.getItem("user") || null,
 			plantList: [],
 			favoritePlantList: [],
 			grid: [],

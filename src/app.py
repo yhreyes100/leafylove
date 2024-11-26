@@ -95,10 +95,6 @@ def get_users():
     }
     return jsonify(response_body), 200
 
-def validate_password(password):  
-    reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$"
-    pat = re.compile(reg)
-    return re.search(pat, password)
 
 @app.route('/signup', methods=['POST'])
 def handle_signup():
