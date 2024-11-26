@@ -5,7 +5,20 @@ import { Context } from "../store/appContext";
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 	useEffect(()=>{
-	
+	async ()=>{
+		await fetch(getStore().urlFetchApi + "/user/" + localStorage.getItem('id'), {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": 'Bearer ' + localStorage.getItem('jwt-token')
+			}
+		})
+			.then(res => res.json())
+			.then(data => {
+				actions.setUser(data["user"])
+			})
+			.catch(err => console.error(err));
+	 }
 	},[])
 	return (
 		<nav className="navbar navbar-light bg-light">
@@ -25,7 +38,7 @@ export const Navbar = () => {
 						</Link>
 						:
 						<Link to="/logoff">
-						<button className="btn btn-success">{store.user} <i class="fa-solid fa-user"></i></button>
+						<button className="btn btn-success">{store.user["username"]} <i class="fa-solid fa-user"></i></button>
 						</Link>		
 					}
 					

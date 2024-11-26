@@ -104,35 +104,35 @@ def handle_signup():
     existEmail = User.query.filter_by(email=data["email"])
     
     validemail = re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', data["email"])
-    if  (len(list(existUser))==0) and  (len(list(existEmail))==0) and data["username"]!="" and data["email"]!="" and validemail and validate_password(data["password"]) and (data["rpassword"]==data["password"]):
-        encodepass = hashlib.sha256(data["password"].encode("utf-8")).hexdigest()
-        user1 = User(email=data["email"],username=data["username"], password= encodepass, is_active=False)
-        db.session.add(user1)
-        db.session.commit()
-        response_body={}
-        response_body["message"]="User successfuly created"
-        return make_response(jsonify(response_body),200)
-    else:
-        response_error={"errors":{}}
-        if not(len(list(existUser))==0):
-            response_error["errors"]["User"] = "User already exist"
-        if not(len(list(existEmail))==0):
-            response_error["errors"]["Email"] = "Email already in use"
-        if  data["username"]=="":
-            response_error["errors"]["UserEmpty"] = "Empty username"  
-        if  data["email"]=="":
-            response_error["errors"]["EmailEmpty"] = "Empty email"    
-        if  data["password"]=="":
-            response_error["errors"]["PasswordEmpty"] = "Empty password"   
-        if not validemail and not data["email"]=="":
-            response_error["errors"]["InvaliEmail"] = "Invalid email"   
-        if not validate_password(data["password"]):
-            response_error["errors"]["InvaliPassword"] = "The password must have at least 8 characters,special symbols, number, uppercase and lowercase."     
-        if not (data["rpassword"]==data["password"]) and validate_password(data["password"]):
-            response_error["errors"]["PasswordMissMatch"] = "Passwords do not match."           
-        if not response_error=={}:
-            resp=make_response(jsonify(response_error),400)
-            return resp    
+    # if  (len(list(existUser))==0) and  (len(list(existEmail))==0) and data["username"]!="" and data["email"]!="" and validemail and validate_password(data["password"]) and (data["rpassword"]==data["password"]):
+        # encodepass = hashlib.sha256(data["password"].encode("utf-8")).hexdigest()
+    user1 = User(email=data["email"],username=data["username"], password= data["password"], is_active=False)
+    db.session.add(user1)
+    db.session.commit()
+    response_body={}
+    response_body["message"]="User successfuly created"
+    return make_response(jsonify(response_body),200)
+    # else:
+        # response_error={"errors":{}}
+        # if not(len(list(existUser))==0):
+        #     response_error["errors"]["User"] = "User already exist"
+        # if not(len(list(existEmail))==0):
+        #     response_error["errors"]["Email"] = "Email already in use"
+        # if  data["username"]=="":
+        #     response_error["errors"]["UserEmpty"] = "Empty username"  
+        # if  data["email"]=="":
+        #     response_error["errors"]["EmailEmpty"] = "Empty email"    
+        # if  data["password"]=="":
+        #     response_error["errors"]["PasswordEmpty"] = "Empty password"   
+        # if not validemail and not data["email"]=="":
+        #     response_error["errors"]["InvaliEmail"] = "Invalid email"   
+        # if not validate_password(data["password"]):
+        #     response_error["errors"]["InvaliPassword"] = "The password must have at least 8 characters,special symbols, number, uppercase and lowercase."     
+        # if not (data["rpassword"]==data["password"]) and validate_password(data["password"]):
+        #     response_error["errors"]["PasswordMissMatch"] = "Passwords do not match."           
+        # if not response_error=={}:
+        #     resp=make_response(jsonify(response_error),400)
+        #     return resp    
 
 
 

@@ -13,25 +13,12 @@ export const Profile = () => {
 	const [message, setMessage] = useState("");
 	const profileFetch = () => {
 	}
-	useEffect(()=>{
-		const getUser= async ()=>{
-			const resp = await fetch(store.urlFetchApi+"/user",{
-				method:"POST",
-				headers:{
-					"Content-Type":"application/json",
-					"Authorization":'Bearer '+ localStorage.getItem('jwt-token')
-				},
-				body: JSON.stringify({"username":store.user}),
-			})
-			.then(res => res.json())
-			.then(data => {
-			   console.log(data.user)
-			})
-			.catch(err => console.error(err));    
-		   
-		   }
-		   getUser();
-    },[])
+	useEffect(() => {
+		//actions.getUserInfo()
+		//	console.log(store.user)
+		/*setUserName(store.user["username"])
+		setEmail(store.email["email"])*/
+	}, [])
 	return (
 		<section className="myform-area">
 			<div className="container justify-content-center">
@@ -43,12 +30,14 @@ export const Profile = () => {
 							<div className="form-floating form-group">
 								<input type="text" className="form-control border-0 border-bottom border-success shadow-none text-success fw-bold ginput"
 									onChange={(e) => { setUserName(e.target.value) }}
+									
 									id="floatingInput1" placeholder="name@example.com" required />
 								<label className="glabel" htmlFor="floatingInput1">Username</label>
 							</div>
 							<div className="form-floating form-group">
 								<input type="email" className="form-control border-0 border-bottom border-success shadow-none text-success fw-bold ginput"
 									onChange={(e) => { setEmail(e.target.value) }}
+									
 									id="floatingInput" placeholder="name@example.com" required />
 								<label className="glabel" htmlFor="floatingInput">Email</label>
 							</div>
@@ -65,8 +54,8 @@ export const Profile = () => {
 								<label className="glabel" htmlFor="floatingPassword">Repeat Password</label>
 							</div>
 							<button className="btn btn-success rbuttom" onClick={() => profileFetch()} >Update</button>
-                            <div className="text-center pb-4 mt-4 link">
-								     <Link to="/dashboard">Go Dashboard</Link>
+							<div className="text-center pb-4 mt-4 link">
+								<Link to="/dashboard">Go Dashboard</Link>
 							</div>
 						</div>
 					</div>

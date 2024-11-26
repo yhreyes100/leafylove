@@ -9,7 +9,7 @@ import { Profile } from "./pages/profile";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
-
+import { SearchPlant } from "./pages/searchPlant";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import WelcomeSection from "./pages/landingPage";
@@ -17,6 +17,8 @@ import { Library } from "./pages/library";
 import PlantBlog from "./pages/blog";
 import { Dashboard } from "./pages/dashboard";
 import { Favorites } from "./pages/favorites";
+import { MyGarden } from "./pages/myGarden";
+import { AddPlant } from "./component/addPlant";
 
 
 //create your first component
@@ -41,8 +43,12 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Library />} path="/library" />
+                        <Route element={<SearchPlant />} path="/searchPlant" />
                         <Route element={<PlantBlog />} path="/plantblog" />
                         <Route element={<Favorites />} path="/favorites" />
+                        <Route element={ <MyGarden />} path="/my-garden" />
+                        <Route element={ <AddPlant />} path="/addplant/:ind" />
+
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/login.css";
 import loginpicImageUrl1 from "../../img/pl1.jpg";
 import { useNavigate, Link } from "react-router-dom";
-import validator from "validator";
+
 export const Singup = () => {
 	const { store, actions } = useContext(Context);
 	const [passw, setPassw] = useState("")
