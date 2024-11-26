@@ -24,7 +24,10 @@ export const Navbar = () => {
         })
         .then(resp => resp.json())
         .then(data => {
+            console.log("Logoff response data:", data);
             localStorage.removeItem("jwt-token");
+            localStorage.removeItem("user");
+            localStorage.removeItem("userId");
             actions.setUser("");
             navigate("/login");
         })
@@ -32,6 +35,8 @@ export const Navbar = () => {
             console.error("Logout error:", error);
             // Still logout on error
             localStorage.removeItem("jwt-token");
+            localStorage.removeItem("user");
+            localStorage.removeItem("userId");
             actions.setUser("");
             navigate("/login");
         });
@@ -51,11 +56,6 @@ export const Navbar = () => {
                     </span>
                 </Link>
                 <div className="ml-auto d-flex align-items-center">
-                    <Link to="/dashboard">
-                        <button className="btn btn-success me-2">
-                            Dashboard
-                        </button>
-                    </Link>
                     {!store.user ? (
                         <Link to="/signup">
                             <button className="btn btn-success">
@@ -63,38 +63,45 @@ export const Navbar = () => {
                             </button>
                         </Link>
                     ) : (
-                        <div className="dropdown">
-                            <button
-                                className="btn btn-success dropdown-toggle"
-                                type="button"
-                                id="userDropdown"
-                                onClick={() => setDropdownOpen(!dropdownOpen)}
-                                aria-expanded={dropdownOpen}
-                            >
-                                <span>{String(store.user)} <i className="fas fa-user"></i></span>
-                            </button>
-                            <ul 
-                                className={`dropdown-menu dropdown-menu-end ${dropdownOpen ? 'show' : ''}`}
-                                aria-labelledby="userDropdown"
-                            >
-                                <li>
-                                    <Link to="/profile" className="dropdown-item">
-                                        <i className="fas fa-user-circle me-2"></i>Profile
-                                    </Link>
-                                </li>
-                                <li>
-                                    <hr className="dropdown-divider" />
-                                </li>
-                                <li>
-                                    <button 
-                                        className="dropdown-item text-danger"
-                                        onClick={handleLogoff}
-                                    >
-                                        <i className="fas fa-sign-out-alt me-2"></i>Sign Out
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
+                        <>
+                            <Link to="/dashboard">
+                                <button className="btn btn-success me-2">
+                                    Dashboard
+                                </button>
+                            </Link>
+                            <div className="dropdown">
+                                <button
+                                    className="btn btn-success dropdown-toggle"
+                                    type="button"
+                                    id="userDropdown"
+                                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                                    aria-expanded={dropdownOpen}
+                                >
+                                    <span>{String(store.user)} <i className="fas fa-user"></i></span>
+                                </button>
+                                <ul 
+                                    className={`dropdown-menu dropdown-menu-end ${dropdownOpen ? 'show' : ''}`}
+                                    aria-labelledby="userDropdown"
+                                >
+                                    <li>
+                                        <Link to="/profile" className="dropdown-item">
+                                            <i className="fas fa-user-circle me-2"></i>Profile
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <hr className="dropdown-divider" />
+                                    </li>
+                                    <li>
+                                        <button 
+                                            className="dropdown-item text-danger"
+                                            onClick={handleLogoff}
+                                        >
+                                            <i className="fas fa-sign-out-alt me-2"></i>Sign Out
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </>
                     )}
                 </div>
             </div>
