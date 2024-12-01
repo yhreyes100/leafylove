@@ -5,11 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			urlFetchApi: "https://expert-space-carnival-pg94q459jr5cggr-3001.app.github.dev",
-			user: "",
-			email: "",
-			id: null,
+			user: {},
 			urlFetchApi: process.env.BACKEND_URL,
-			user:"",
 			plantList: [],
 			favoritePlantList: [],
 			grid: [],
@@ -43,56 +40,56 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// },
 				// {
 				// 	commonName: "Aloe Vera",
-				// 	type: "Perennial",
-				// 	lighting: "Full sun, indirect",
+				// 	growthCycle: "Perennial",
+				// 	lightExposure: ["sun", "part sun"],
 				// 	soilType: "Dry, well-drained",
 				// 	plantImage: "https://www.giardinibalduzzi.com/wp-content/uploads/2022/08/1343670-aloe-vera-in-giardino-gratuito-foto-scaled.jpeg"
 				// },
 				// {
 				// 	commonName: "Spinach",
-				// 	type: "Vegetable",
+				// 	plantType: "Vegetable",
 				// 	lighting: "Full, Partial sun",
 				// 	soilType: "Loamy, moist, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/vB1pR_nYXPT5BJzFF0h9crD-wNw=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/growing-spinach-1403448-13-8e9751e8c47043529effcb4d0786e4b1.jpg"
 				// },
 				// {
 				// 	commonName: "Basil",
-				// 	type: "Vegetable",
+				// 	plantType: "Vegetable",
 				// 	lighting: "Full sun",
 				// 	soilType: "Loamy, moist, well-drained",
 				// 	plantImage: "https://lawn.com.au/wp-content/uploads/2022/08/how-to-grow-basil-1.jpg"
 				// },
 				// {
 				// 	commonName: "Bell Pepper",
-				// 	type: "Fruit",
+				// 	plantType: "Fruit",
 				// 	lighting: "Full sun",
 				// 	soilType: "Loamy, well-drained",
 				// 	plantImage: "https://www.gardentech.com/-/media/project/oneweb/gardentech/plantImages/blog/growing-your-own-bell-peppers/growing_peppers-pepper_garden.jpg"
 				// },
 				// {
 				// 	commonName: "Lady Fern",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Shade, partial sun",
 				// 	soilType: "Moist, sandy, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/Fc5fBYqJfwoNNlxGRaNS8OFWYPM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/lady-ferns-plant-profile-5120209-hero-3c985b21a2354012a14b29c94626de45.jpg"
 				// },
 				// {
 				// 	commonName: "Carrot",
-				// 	type: "Vegetable",
+				// 	plantType: "Vegetable",
 				// 	lighting: "Full, partial sun",
 				// 	soilType: "Loose, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/O9KDM5Uir7Uaiz1lZ1nl0pLSriU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/how-to-grow-carrots-in-the-vegetable-garden-1403472-07-de29d2582e34413a8d085f9b05f509ca.jpg"
 				// },
 				// {
 				// 	commonName: "Rose",
-				// 	type: "Shrub",
+				// 	plantType: "Shrub",
 				// 	lighting: "Full sun",
 				// 	soilType: "Loamy, well-drained",
 				// 	plantImage: "https://images.squarespace-cdn.com/content/v1/631943b5aaa6db42756b140e/d59bb6a8-c7ec-4dce-bef3-d879f15f42dd/DSCF6492.JPG"
 				// },
 				// {
 				// 	commonName: "Mint",
-				// 	type: "Herb",
+				// 	plantType: "Herb",
 				// 	lighting: "Full, partial sun",
 				// 	soilType: "Loamy, moist, well-drained",
 				// 	plantImage: "https://gardenerspath.com/wp-content/uploads/2020/04/Mint-Growing-in-the-Garden.jpg"
@@ -106,158 +103,336 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// },
 				// {
 				// 	commonName: "African Daisy",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full sun",
 				// 	soilType: "Sandy, well-drained",
 				// 	plantImage: "https://justinseed.com/wp-content/uploads/2023/07/African-Daisy.jpg"
 				// },
 				// {
 				// 	commonName: "Agapanthus",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full, partial sun",
 				// 	soilType: "Sandy, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/udoeXTDH8XSz-ff6y3yrt130h-A=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/agapanthus-growing-guide-7368912_04-66a3f4cf245b4332b28954dd37c784f5.jpg"
 				// },
 				// {
 				// 	commonName: "Cabbage",
-				// 	type: "Vegetable",
+				// 	plantType: "Vegetable",
 				// 	lighting: "Full sun",
 				// 	soilType: "Loamy, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/1WxLtYy1wNhoAVGFKeESb4DAM4g=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/thespruce.com-growing-and-caring-for-cabbage-plants-1402815-1-4fef655d4e8a46819667ae848009362e.jpg"
 				// },
 				// {
 				// 	commonName: "Marigold",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full, partial sun",
 				// 	soilType: "Well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/Ybj8BQX0mWGJyIcUGQs_VcmyhFA=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/growing-and-using-calendula-1402626-26-f3f6f07fcc594a79b1a792f863a4a8e6.jpg"
 				// },
 				// {
 				// 	commonName: "Daffodils",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full, partial sun",
 				// 	soilType: "Moist, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/aCZv-7XK5yNgQKcbJX1qvP2nEXg=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/planting-and-growing-daffodils-1402136_01-bb8eada2ffb4443dbb20a7b1f0f3dfce.jpg"
 				// },
 				// {
 				// 	commonName: "Daylily",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full, partial sun",
 				// 	soilType: "Loamy",
 				// 	plantImage: "https://www.thespruce.com/thmb/FpBXAS3tkz3fY9Te20BmTeWLBGc=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/how-to-grow-and-care-for-daylilies-5075400-hero-dc8f260afc6844dcb9067abebeb883ae.jpg"
 				// },
 				// {
 				// 	commonName: "Delphinium",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full, partial sun",
 				// 	soilType: "Moist, loamy, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/u5fQa4QZQyZ6Xezehg5yt-ai2z4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/delphinium-care-guide-7105084_10-12092ab0177a49c18d3c156f53bd1ee9.jpg"
 				// },
 				// {
 				// 	commonName: "Garlic",
-				// 	type: "Vegetable",
+				// 	plantType: "Vegetable",
 				// 	lighting: "Full sun",
 				// 	soilType: "Moist, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/9ZfZ_2BUSaX84fOQzkaUAWEgpR0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/hardneck-and-softneck-garlic-2540056-02-187d9130324346319f9d2df16a7124c5.jpg"
 				// },
 				// {
 				// 	commonName: "Chamomile",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full sun",
 				// 	soilType: "Well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/jy6mUAdNJo1aHVs99v74IFjpPY0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/how-to-grow-chamomile-1402627-02-8567d20717ce40679aab37d06686a806.jpg"
 				// },
 				// {
 				// 	commonName: "Jalapeño Pepper",
-				// 	type: "Fruit",
+				// 	plantType: "Fruit",
 				// 	lighting: "Full sun",
 				// 	soilType: "Loamy, moist, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/loGMkuLL7mL7CNkVlfbnZzQkCUM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/grow-jalapeno-peppers-inside-1902569-7-e261f3dbeb114161b0d9e4f6e6f89fac.jpg"
 				// },
 				// {
 				// 	commonName: "Radish",
-				// 	type: "Vegetable",
+				// 	plantType: "Vegetable",
 				// 	lighting: "Full sun",
 				// 	soilType: "Loamy, sandy, moist, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/4jE9V2xk7AgcuGhkO5rphduGs3Q=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/growing-radishes-in-the-home-vegetable-garden-1403477-02-c295e04667df4c8fac380a5543b663e1.jpg"
 				// },
 				// {
 				// 	commonName: "Turmeric",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full, partial sun",
 				// 	soilType: "Moist, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/wcrhAfRateEx54H23w3O71L2vCw=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/turmeric-plant-477981208-b626ae8455c9480c9e76ec81b2ac720e.jpg"
 				// },
 				// {
 				// 	commonName: "Tulip",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full sun",
 				// 	soilType: "Rich, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/8b-jbjbwgUz28mzGYP9sv0okk7U=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/tulips-planting-and-growing-tulips-1402137-08-aee8737736d848ef95f0a340705d9bf9.jpg"
 				// },
 				// {
 				// 	commonName: "Chamomile",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full",
 				// 	soilType: "Well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/jy6mUAdNJo1aHVs99v74IFjpPY0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/how-to-grow-chamomile-1402627-02-8567d20717ce40679aab37d06686a806.jpg"
 				// },
 				// {
 				// 	commonName: "Tomato",
-				// 	type: "Fruit",
+				// 	plantType: "Fruit",
 				// 	lighting: "Full sun",
 				// 	soilType: "Loamy, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/zARHUKvx8nouC2J7z3-az_UHwPY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/tomato-plant-7488122_Hero1A-0a34969ad372497ea344d0cbfa026484.jpg"
 				// },
 				// {
 				// 	commonName: "Thyme",
-				// 	type: "Herb",
+				// 	plantType: "Herb",
 				// 	lighting: "Full sun",
 				// 	soilType: "Loamy, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/HjedhyaOVoUM93c1asOVA09qUlI=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/grow-thyme-indoors-1902495-05-8eeb0bffe5e2421cacca15e200b1382c.jpg"
 				// },
 				// {
 				// 	commonName: "Sunflower",
-				// 	type: "Annual",
+				// 	growthCycle: "Annual",
 				// 	lighting: "Full sun",
 				// 	soilType: "Well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/V-Lhd8LLdBaHnA9OXcxDbSA8U1s=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/growing-sunflowers-1402916-02-5c7133a770c8407887fa6b23e6e68f17.jpg"
 				// },
 				// {
 				// 	commonName: "Spider Lily",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full, partial sun",
 				// 	soilType: "Well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/V-Lhd8LLdBaHnA9OXcxDbSA8U1s=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/growing-sunflowers-1402916-02-5c7133a770c8407887fa6b23e6e68f17.jpg"
 				// },
 				// {
 				// 	commonName: "Lavender",
-				// 	type: "Perennial",
+				// 	growthCycle: "Perennial",
 				// 	lighting: "Full sun",
 				// 	soilType: "Dry, well-drained",
 				// 	plantImage: "https://www.thespruce.com/thmb/AcExNXC2oPyfysYMhZWGMIpivf8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/growing-lavender-1402779-hero-d308fde4141e431eabe5ef2e5bf3ba11_1-ba6ca30e02f546779cf0839a00aee493.jpg"
 				// },
 				{
-					scientificName: "Papaver somniferum",
-					commonName: "Atlas Poppy",
-					growthCycle: "annual",
-					plantType: "flower",
+					scientificName: "Dracaena trifasciata",
+					commonName: "Snake Plant",
+					growthCycle: "perennial",
+					plantType: "houseplant",
 					leafType: "broadleaf",
-					hardinessZone: ["6", "7"],
-					height: 4,
+					hardinessZone: ["9", "10", "11"],
+					height: 2,
 					plantIs: "blooming",
 					bloomTime: ["spring"],
-					flowerColor: "various",
-					fruitPresent: "summer",
-					// fruitColor: ["Green", "Brown"],
-					lightExposure: ["sun"],
-					plantImage: "https://i.imgur.com/oJsAEL5.jpg?1",
-					drainage: ["well drained", "moist"],
-					growthRate: "moderate",
+					flowerColor: ["white"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://www.almanac.com/sites/default/files/users/The%20Editors/snake_plant_sansevieria_trifasciata_laurentii_mokkie-wc_full_width.jpg",
+					drainage: ["well drained", "sandy"],
+					growthRate: "fast",
 					waterReq: "medium",
 					isSusceptible: "Yes",
 					comments:
-						"Seed sewn from September to April. Planted in the deep south at the earlier date and in the north in spring. Red or pink are the colors most commonly planted. This is the plant from which opium is eventually made. Opium is used in the manufacture of morphine, which is a widely used pain killer in medical practices."
+						"Snake plant is a good choice for beginners because it tolerates a range of growing conditions."
+				},
+				{
+					scientificName: "Aloe barbadensis miller",
+					commonName: "Aloe Vera",
+					growthCycle: "perennial",
+					plantType: "succulent",
+					leafType: "broadleaf",
+					hardinessZone: ["10", "11", "12"],
+					height: 2,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://www.giardinibalduzzi.com/wp-content/uploads/2022/08/1343670-aloe-vera-in-giardino-gratuito-foto-scaled.jpeg",
+					drainage: ["well drained", "sandy", "dry"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						"Aloe requires little watering and virtually no fertilizing, making it an easy-care houseplant for beginner gardeners."
+				},
+				{
+					scientificName: "Spinacia oleracea",
+					commonName: "Spinach",
+					growthCycle: "annual",
+					plantType: "vegetable",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://www.thespruce.com/thmb/vB1pR_nYXPT5BJzFF0h9crD-wNw=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/growing-spinach-1403448-13-8e9751e8c47043529effcb4d0786e4b1.jpg",
+					drainage: ["well drained", "loamy", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						"Spinach needs around six weeks of cool temperatures to grow from seed to maturity."
+				},
+				{
+					scientificName: "",
+					commonName: "Basil",
+					growthCycle: "perrenial",
+					plantType: "vegetable",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://lawn.com.au/wp-content/uploads/2022/08/how-to-grow-basil-1.jpg",
+					drainage: ["well drained", "loamy", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Bell Pepper",
+					growthCycle: "perrenial",
+					plantType: "fruit",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "full sun"],
+					plantImage: "https://cdn.mos.cms.futurecdn.net/NRxrnUVoj8hj9auMXctNui-1200-80.jpg",
+					drainage: ["well drained", "loamy"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Lady Fern",
+					growthCycle: "perrenial",
+					plantType: "garden plant",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun", "shade"],
+					plantImage: "https://www.thespruce.com/thmb/Fc5fBYqJfwoNNlxGRaNS8OFWYPM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/lady-ferns-plant-profile-5120209-hero-3c985b21a2354012a14b29c94626de45.jpg",
+					drainage: ["well drained", "sandy", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Carrot",
+					growthCycle: "perrenial",
+					plantType: "vegetable",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://www.thespruce.com/thmb/O9KDM5Uir7Uaiz1lZ1nl0pLSriU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/how-to-grow-carrots-in-the-vegetable-garden-1403472-07-de29d2582e34413a8d085f9b05f509ca.jpg",
+					drainage: ["well drained", "loose"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Rose",
+					growthCycle: "perrenial",
+					plantType: "shrub",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://images.squarespace-cdn.com/content/v1/631943b5aaa6db42756b140e/d59bb6a8-c7ec-4dce-bef3-d879f15f42dd/DSCF6492.JPG",
+					drainage: ["well drained", "loamy"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Mint",
+					growthCycle: "perrenial",
+					plantType: "herb",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://gardenerspath.com/wp-content/uploads/2020/04/Mint-Growing-in-the-Garden.jpg",
+					drainage: ["well drained", "loamy", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Cactus",
+					growthCycle: "perrenial",
+					plantType: "succulent",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://media.istockphoto.com/id/912142406/photo/cactus-small-plants.jpg?s=612x612&w=0&k=20&c=zknWl6MWmyP61I8gzlvasTuKxsMnU2Jb-uQCz6b1pt4=",
+					drainage: ["well drained", "sandy"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
 				},
 				{
 					scientificName: "Osteospermum hybrids",
@@ -270,16 +445,54 @@ const getState = ({ getStore, getActions, setStore }) => {
 					plantIs: "blooming",
 					bloomTime: ["spring", "summer", "fall"],
 					flowerColor: ["various"],
-					// fruitPresent: null,
-					// fruitColor: [null],
 					lightExposure: ["sun", "part sun"],
-					plantImage: "https://i.imgur.com/iku1MrR.jpg",
+					plantImage: "https://silverfallsseed.com/wp-content/uploads/2015/12/IMG_5175.jpg",
 					drainage: ["well drained", "moist"],
 					growthRate: "Moderate",
 					waterReq: "low",
 					isSusceptible: "Yes",
 					comments:
 						"A flowering annual except in zones 9-11 where it is a perennial. Flowers from time of planting until frost. After plants are established, they will need little suppemental water. Use in rock gardens, containers, in ground beds and as a cut flower. Attracts hummingbirds and butterflies. It is drought tolerant and deer resistant."
+				},
+				{
+					scientificName: "",
+					commonName: "Agapanthus",
+					growthCycle: "perrenial",
+					plantType: "shrub",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://www.thespruce.com/thmb/udoeXTDH8XSz-ff6y3yrt130h-A=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/agapanthus-growing-guide-7368912_04-66a3f4cf245b4332b28954dd37c784f5.jpg",
+					drainage: ["well drained", "sandy"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Cabbage",
+					growthCycle: "perrenial",
+					plantType: "vegetable",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["full sun"],
+					plantImage: "https://www.thespruce.com/thmb/1WxLtYy1wNhoAVGFKeESb4DAM4g=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/thespruce.com-growing-and-caring-for-cabbage-plants-1402815-1-4fef655d4e8a46819667ae848009362e.jpg",
+					drainage: ["well drained", "loamy"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
 				},
 				{
 					scientificName: "Tagetes erecta",
@@ -293,13 +506,313 @@ const getState = ({ getStore, getActions, setStore }) => {
 					bloomTime: ["summer", "fall"],
 					flowerColor: ["yellow", "orange"],
 					lightExposure: ["sun"],
-					plantImage: "https://i.imgur.com/Xnliu6s.jpg",
+					plantImage: "https://www.thespruce.com/thmb/Ybj8BQX0mWGJyIcUGQs_VcmyhFA=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/growing-and-using-calendula-1402626-26-f3f6f07fcc594a79b1a792f863a4a8e6.jpg",
 					drainage: ["well drained", "moist"],
 					growthRate: "moderate",
 					waterReq: "medium",
 					isSusceptible: "No",
 					comments:
 						"Marigolds have been around since pre-historic times. They grow best in full sunlight and in well drained soils. Marigolds cannot tolerate wet, humid conditions. They love drier climates where soils stay only moderately moist. Marigolds bloom from early summer through the fall if conditions are favorable. There can be a period during the hottest part of the summer when mar igolds may cease to bloom until the temperatures fall below 90 F"
+				},
+				{
+					scientificName: "",
+					commonName: "Daffodil",
+					growthCycle: "perrenial",
+					plantType: "shrub",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://www.thespruce.com/thmb/aCZv-7XK5yNgQKcbJX1qvP2nEXg=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/planting-and-growing-daffodils-1402136_01-bb8eada2ffb4443dbb20a7b1f0f3dfce.jpg",
+					drainage: ["well drained", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Daylily",
+					growthCycle: "perrenial",
+					plantType: "shrub",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://cdn.mos.cms.futurecdn.net/rY7TpgQVvrZimjjg8bPyiJ.jpg",
+					drainage: ["well drained", "loamy"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Delphinium",
+					growthCycle: "perrenial",
+					plantType: "shrub",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://www.gardendesign.com/pictures/images/900x705Max/dream-team-s-portland-garden_6/delphiniums-staked-blue-flowers-alamy-stock-photo_12752.jpg",
+					drainage: ["well drained", "loamy", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Garlic",
+					growthCycle: "perrenial",
+					plantType: "vegetable",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["full sun"],
+					plantImage: "https://www.thespruce.com/thmb/9ZfZ_2BUSaX84fOQzkaUAWEgpR0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/hardneck-and-softneck-garlic-2540056-02-187d9130324346319f9d2df16a7124c5.jpg",
+					drainage: ["well drained", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Chamomile",
+					growthCycle: "perrenial",
+					plantType: "shrub",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["full sun"],
+					plantImage: "https://www.thespruce.com/thmb/jy6mUAdNJo1aHVs99v74IFjpPY0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/how-to-grow-chamomile-1402627-02-8567d20717ce40679aab37d06686a806.jpg",
+					drainage: ["well drained"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Jalapeño",
+					growthCycle: "perrenial",
+					plantType: "fruit",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://www.thespruce.com/thmb/loGMkuLL7mL7CNkVlfbnZzQkCUM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/grow-jalapeno-peppers-inside-1902569-7-e261f3dbeb114161b0d9e4f6e6f89fac.jpg",
+					drainage: ["well drained", "loamy", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Radish",
+					growthCycle: "perrenial",
+					plantType: "vegetable",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["full sun"],
+					plantImage: "https://www.thespruce.com/thmb/4jE9V2xk7AgcuGhkO5rphduGs3Q=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/growing-radishes-in-the-home-vegetable-garden-1403477-02-c295e04667df4c8fac380a5543b663e1.jpg",
+					drainage: ["well drained", "loamy", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Tumeric",
+					growthCycle: "perrenial",
+					plantType: "vegetable",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://www.thespruce.com/thmb/wcrhAfRateEx54H23w3O71L2vCw=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/turmeric-plant-477981208-b626ae8455c9480c9e76ec81b2ac720e.jpg",
+					drainage: ["well drained", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Tulip",
+					growthCycle: "perrenial",
+					plantType: "flower",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["full sun"],
+					plantImage: "https://www.thespruce.com/thmb/8b-jbjbwgUz28mzGYP9sv0okk7U=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/tulips-planting-and-growing-tulips-1402137-08-aee8737736d848ef95f0a340705d9bf9.jpg",
+					drainage: ["well drained", "rich"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Tomato",
+					growthCycle: "perrenial",
+					plantType: "fruit",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["full sun"],
+					plantImage: "https://www.thespruce.com/thmb/zARHUKvx8nouC2J7z3-az_UHwPY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/tomato-plant-7488122_Hero1A-0a34969ad372497ea344d0cbfa026484.jpg",
+					drainage: ["well drained", "loamy"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Thyme",
+					growthCycle: "perrenial",
+					plantType: "herb",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["full sun"],
+					plantImage: "https://www.thespruce.com/thmb/HjedhyaOVoUM93c1asOVA09qUlI=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/grow-thyme-indoors-1902495-05-8eeb0bffe5e2421cacca15e200b1382c.jpg",
+					drainage: ["well drained", "loamy"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Sunflower",
+					growthCycle: "annual",
+					plantType: "flower",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["full sun"],
+					plantImage: "https://www.gardenia.net/wp-content/uploads/2024/01/shutterstock_2084235901-800x533.jpg",
+					drainage: ["well drained", "loamy", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Spider Lily",
+					growthCycle: "perrenial",
+					plantType: "flower",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["sun", "part sun"],
+					plantImage: "https://www.thespruce.com/thmb/h5nfqX-OFte0d9BdqlN9gfYrYBY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/growing-red-spider-lily-5093664-hero-6e311153f91e4f32b043c76b4f510469.jpg",
+					drainage: ["well drained", "loamy", "moist"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "",
+					commonName: "Lavender",
+					growthCycle: "perrenial",
+					plantType: "herb",
+					leafType: "broadleaf",
+					hardinessZone: ["2", "3", "4"],
+					height: 1,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: ["yellow", "red"],
+					lightExposure: ["full sun"],
+					plantImage: "https://www.thespruce.com/thmb/AcExNXC2oPyfysYMhZWGMIpivf8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/growing-lavender-1402779-hero-d308fde4141e431eabe5ef2e5bf3ba11_1-ba6ca30e02f546779cf0839a00aee493.jpg",
+					drainage: ["well drained", "dry"],
+					growthRate: "fast",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						""
+				},
+				{
+					scientificName: "Papaver somniferum",
+					commonName: "Atlas Poppy",
+					growthCycle: "annual",
+					plantType: "flower",
+					leafType: "broadleaf",
+					hardinessZone: ["6", "7"],
+					height: 4,
+					plantIs: "blooming",
+					bloomTime: ["spring"],
+					flowerColor: "various",
+					lightExposure: ["sun"],
+					plantImage: "https://i.imgur.com/oJsAEL5.jpg?1",
+					drainage: ["well drained", "moist"],
+					growthRate: "moderate",
+					waterReq: "medium",
+					isSusceptible: "Yes",
+					comments:
+						"Seed sewn from September to April. Planted in the deep south at the earlier date and in the north in spring. Red or pink are the colors most commonly planted. This is the plant from which opium is eventually made. Opium is used in the manufacture of morphine, which is a widely used pain killer in medical practices."
 				},
 				{
 					scientificName: "Begonia semperflorens",
@@ -313,7 +826,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					bloomTime: ["spring", "summer", "fall"],
 					flowerColor: ["various"],
 					lightExposure: ["sun", "part sun"],
-					plantImage: "https://i.imgur.com/yVwqHdG.jpg",
+					plantImage: "https://cdn.britannica.com/42/198142-050-48DAB6F3/Wax-Begonia-cucullata-flower.jpg",
 					drainage: ["well drained", "moist"],
 					growthRate: "moderate",
 					waterReq: "medium",
@@ -343,7 +856,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				},
 				{
 					scientificName: "Pelargonium x hortorum",
-					commonName: "Garden Geranium",
+					commonName: "Geranium",
 					growthCycle: "perennial",
 					plantType: "flower",
 					leafType: "broadleaf",
@@ -497,7 +1010,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					bloomTime: ["spring", "summer"],
 					flowerColor: ["various"],
 					lightExposure: ["sun", "part sun"],
-					plantImage: "https://i.imgur.com/859zmkt.jpg",
+					plantImage: "https://images.squarespace-cdn.com/content/v1/5d00610d3115730001df62ab/1593567194933-RS2HJLMRQE15XAG3MBGC/colorful-cosmos.jpg",
 					drainage: ["well drained", "moist", "dry"],
 					growthRate: "fast",
 					waterReq: "medium",
@@ -586,7 +1099,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			setUser(value){
-				setStore({user:value});
+				localStorage.setItem("id", value)
+				const getUser= async ()=>{
+					const resp = await fetch(getStore().urlFetchApi+"/user/"+value,{
+						method:"GET",
+						headers:{
+							"Content-Type":"application/json",
+							"Authorization":'Bearer '+ localStorage.getItem('jwt-token')
+						}
+					})
+					.then(res => res.json())
+					.then(data => {
+						setStore({user:data["user"]})
+					})
+					.catch(err => console.error(err));    
+				   
+				   }
+				   getUser();
 			},
 			getPlantList: () => {
 				fetch(speciesapiUrl)
@@ -602,6 +1131,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 			}
 
+			
 
 			
 			// exampleFunction: () => {

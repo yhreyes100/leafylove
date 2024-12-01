@@ -289,6 +289,12 @@ export const SearchPlant = () => {
 															type="button">
 															Read more
 														</button>
+														<button
+															onClick={() => actions.addFavorite(item, store.user.id)}
+															className="btn btn-style"
+															type="button">
+															Add To Favorites
+														</button>
 														<p className="card-text">
 															<small className="text-muted">
 																Last updated 3 mins ago
