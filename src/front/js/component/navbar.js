@@ -24,7 +24,10 @@ export const Navbar = () => {
         })
         .then(resp => resp.json())
         .then(data => {
+            console.log("Logoff response data:", data);
             localStorage.removeItem("jwt-token");
+            localStorage.removeItem("user");
+            localStorage.removeItem("userId");
             actions.setUser("");
             navigate("/login");
         })
@@ -51,11 +54,6 @@ export const Navbar = () => {
                     </span>
                 </Link>
                 <div className="ml-auto d-flex align-items-center">
-                    <Link to="/dashboard">
-                        <button className="btn btn-success me-2">
-                            Dashboard
-                        </button>
-                    </Link>
                     {!store.user ? (
                         <Link to="/signup">
                             <button className="btn btn-success">

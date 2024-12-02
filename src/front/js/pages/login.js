@@ -3,12 +3,15 @@ import { Context } from "../store/appContext";
 import "../../styles/login.css";
 import loginpicImageUrl1 from "../../img/pl1.jpg";
 import { useNavigate, Link } from "react-router-dom";
+
+
 export const Login = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
 	const [passw, setPassw] = useState("")
 	const [userName, setUserName] = useState("")
 	const [error, setError] = useState("");
+
 	const login = () => {
 		fetch(store.urlFetchApi + "/login", {
 			method: "POST",
@@ -33,6 +36,7 @@ export const Login = () => {
 				console.log(error);
 			});
 	}
+
 	return (
 		<section className="myform-area">
 			<div className="container justify-content-center">
@@ -63,6 +67,7 @@ export const Login = () => {
 									id="floatingPassword" placeholder="Password" required />
 								<label className="glabel" htmlFor="floatingPassword">Password</label>
 							</div>
+							<button className="btn btn-success rbuttom" onClick={() => login()}>Login</button>
 							<button className="btn btn-success rbuttom" onClick={() => login()}>Login</button>
 							<div className="text-center pb-4 mt-4">
 								Don't have an account? <Link to="/signup">Signup</Link>
