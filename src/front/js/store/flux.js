@@ -7,6 +7,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 			urlFetchApi: "https://expert-space-carnival-pg94q459jr5cggr-3001.app.github.dev",
 			user: {},
 			urlFetchApi: process.env.BACKEND_URL,
+			user: localStorage.getItem("user") || null,
+			userId: localStorage.getItem("userId") || null,
+			blogs: [],
+			blogError: null,
+			currentBlog: null,
+			blogComments: [],
+			userLikeStatus: null,
 			plantList: [],
 			favoritePlantList: [],
 			grid: [],
@@ -1134,41 +1141,60 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("plantslist", data.data);
 					setStore({ plantList: data.data});
 				})
-			}
-
-			
-
-			
-			// exampleFunction: () => {
-			// 	getActions().changeColor(0, "green");
-			// },
-
-			// getMessage: async () => {
-			// 	try{
-			// 		// fetching data from the backend
-			// 		const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-			// 		const data = await resp.json()
-			// 		setStore({ message: data.message })
-			// 		// don't forget to return something, that is how the async resolves
-			// 		return data;
-			// 	}catch(error){
-			// 		console.log("Error loading message from backend", error)
+			},
+			// setUser(value){
+			// 	localStorage.setItem("id", value)
+			// 	if(value){
+			// 		const getUser= async ()=>{
+			// 			const resp = await fetch(getStore().urlFetchApi+"/user/"+value,{
+			// 				method:"GET",
+			// 				headers:{
+			// 					"Content-Type":"application/json",
+			// 					"Authorization":'Bearer '+ localStorage.getItem('jwt-token')
+			// 				}
+			// 			})
+			// 			.then(res => res.json())
+			// 			.then(data => {
+			// 				setStore({user:data["user"]})
+			// 			})
+			// 			.catch(err => console.error(err));    
+					   
+			// 		   }
+			// 		   getUser();
+			// 	}
+			// 	else{
+			// 		setStore({user:{}})
 			// 	}
 			// },
-			// changeColor: (index, color) => {
-			// 	//get the store
-			// 	const store = getStore();
+			// getPlantList: () => {
+			// 	fetch(speciesapiUrl)
+			// 		.then((res) => {
+			// 			if (!res.ok) {
+			// 				throw new Error();
+			// 			}
+			// 			return res.json();
+			// 		})
+			// 		.then((data) => {
+			// 			setStore({ plantList: data.data });
+			// 		})
+			// 		.catch(error => console.error("Error fetching plant list:", error));
+			// },
 
-			// 	//we have to loop the entire demo array to look for the respective index
-			// 	//and change its color
-			// 	const demo = store.demo.map((elm, i) => {
-			// 		if (i === index) elm.background = color;
-			// 		return elm;
-			// 	});
 
-			// 	//reset the global store
-			// 	setStore({ demo: demo });
-			// }
+			addFavorite: (plant, userId) => {
+				const store = getStore();
+				const isAlreadyFavorite = store.favoritePlantList.some((elem) => elem.commonName === plant.commonName);
+				console.log(isAlreadyFavorite)
+				if (!isAlreadyFavorite) {
+					setStore({ favoritePlantList: [...store.favoritePlantList, plant] });
+				}
+			},
+
+			removeFavorite: (id) => {
+				const store = getStore();
+				const updatedFavorites = store.favoritePlantList.filter((elem) => elem.id !== id);
+				setStore({ favoritePlantList: updatedFavorites });
+			}
 		}
 	};
 };
