@@ -15,6 +15,7 @@ import { Footer } from "./component/footer";
 import WelcomeSection from "./pages/landingPage";
 import { Library } from "./pages/library";
 import PlantBlog from "./pages/plantblog";
+import BlogDetails from "./component/blogDetails";
 import { Dashboard } from "./pages/dashboard";
 import { Favorites } from "./pages/favorites";
 import { MyGarden } from "./pages/myGarden";
@@ -46,6 +47,7 @@ const Layout = () => {
                         <Route element={<Library />} path="/library" />
                         <Route element={<SearchPlant />} path="/searchplant" />
                         <Route element={<PlantBlog />} path="/plantblog" />
+                        <Route element={<BlogDetails />} path="/blog/:id" />
                         <Route element={<Favorites />} path="/favorites" />
                         <Route element={ <MyGarden />} path="/my-garden" />
                         <Route element={ <AddPlant />} path="/addplant/:ind" />

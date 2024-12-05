@@ -37,11 +37,11 @@ export const Dashboard = () => {
                     </Link>
                 </div>
                 <div className="col-lg-2 col-sm-12">
-                    <Link to="">
+                    <Link to="/plantblog">
                         <div className="card carddashboard">
                             <img className="card-img-top" src="https://png.pngtree.com/png-vector/20231116/ourmid/pngtree-blog-icon-network-png-image_10540682.png" alt="Card image cap" />
                             <div className="card-body cbdashboard">
-                                <h5 className="card-title">My Blog</h5>
+                                <h5 className="card-title">Blog</h5>
                             </div>
                         </div>
                     </Link>

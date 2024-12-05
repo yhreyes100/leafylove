@@ -6,6 +6,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			urlFetchApi: process.env.BACKEND_URL,
 			user: localStorage.getItem("user") || null,
+			userId: localStorage.getItem("userId") || null,
+			blogs: [],
+			blogError: null,
+			currentBlog: null,
+			blogComments: [],
+			userLikeStatus: null,
 			plantList: [],
 			favoritePlantList: [],
 			grid: [],
@@ -1102,8 +1108,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const newGridJSON = JSON.stringify(newGrid);
 				localStorage.setItem("grid", newGridJSON);
 			},
-			setUser(value) {
-				setStore({ user: value });
+			setUser(user, userId) {
+				setStore({ 
+					user: user, 
+					userId: userId
+				});
 			},
 			getPlantList: () => {
 				fetch(speciesapiUrl)
