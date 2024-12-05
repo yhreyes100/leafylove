@@ -10,9 +10,9 @@ export const Dashboard = () => {
     const [email, setEmail] = useState("")
     const [userName, setUserName] = useState("")
     const [userId, setUserId] = useState("")
-    useEffect(() => {
-
-    }, [])
+    useEffect(()=>{
+        actions.setUser(localStorage.getItem('id'))
+    },[])
     return (
         <div className="container dashboardcontainer">
             <div className="row">

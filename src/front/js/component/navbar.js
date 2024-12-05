@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logoImg from "../../img/plantapp.png";
 import { Context } from "../store/appContext";
@@ -26,22 +26,25 @@ export const Navbar = () => {
         .then(data => {
             console.log("Logoff response data:", data);
             localStorage.removeItem("jwt-token");
-            localStorage.removeItem("user");
-            localStorage.removeItem("userId");
-            actions.setUser("");
-            navigate("/login");
+            localStorage.removeItem("id");
+            actions.setUser();
+            navigate("/");
         })
         .catch(error => {
             console.error("Logout error:", error);
             // Still logout on error
             localStorage.removeItem("jwt-token");
-            localStorage.removeItem("user");
-            localStorage.removeItem("userId");
-            actions.setUser("");
+            actions.setUser();
             navigate("/login");
         });
     };
-
+    useEffect(()=>{
+        actions.setUser(localStorage.getItem('id'))
+    },[])
+    useEffect(()=>{
+        console.log("User info0: "+store.user)
+    },[])
+    console.log(store.user+"aa")
     return (
         <nav className="navbar navbar-light bg-light">
             <div className="container">
@@ -56,52 +59,51 @@ export const Navbar = () => {
                     </span>
                 </Link>
                 <div className="ml-auto d-flex align-items-center">
-                    {!store.user ? (
+                    { ((store.user &&!("username" in store.user)) || store.user==undefined )? (
                         <Link to="/signup">
                             <button className="btn btn-success">
                                 Sign Up/Register <i className="fas fa-user"></i>
                             </button>
                         </Link>
                     ) : (
-                        <>
-                            <Link to="/dashboard">
-                                <button className="btn btn-success me-2">
-                                    Dashboard
-                                </button>
-                            </Link>
-                            <div className="dropdown">
-                                <button
-                                    className="btn btn-success dropdown-toggle"
-                                    type="button"
-                                    id="userDropdown"
-                                    onClick={() => setDropdownOpen(!dropdownOpen)}
-                                    aria-expanded={dropdownOpen}
-                                >
-                                    <span>{String(store.user)} <i className="fas fa-user"></i></span>
-                                </button>
-                                <ul 
-                                    className={`dropdown-menu dropdown-menu-end ${dropdownOpen ? 'show' : ''}`}
-                                    aria-labelledby="userDropdown"
-                                >
-                                    <li>
-                                        <Link to="/profile" className="dropdown-item">
-                                            <i className="fas fa-user-circle me-2"></i>Profile
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <hr className="dropdown-divider" />
-                                    </li>
-                                    <li>
-                                        <button 
-                                            className="dropdown-item text-danger"
-                                            onClick={handleLogoff}
-                                        >
-                                            <i className="fas fa-sign-out-alt me-2"></i>Sign Out
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </>
+                        <div className="dropdown">
+                            <button
+                                className="btn btn-success dropdown-toggle"
+                                type="button"
+                                id="userDropdown"
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                                aria-expanded={dropdownOpen}
+                            >
+                                {
+                                  (store.user &&("username" in store.user))?                                      
+                                  store.user["username"] :
+                                    ""
+                                }
+                                <span>{String("")} <i className="fas fa-user"></i></span>
+                            </button>
+                            <ul 
+                                className={`dropdown-menu dropdown-menu-end ms-n5 ${dropdownOpen ? 'show' : ''}`}
+                                aria-labelledby="userDropdown"
+                            >
+                                 <li>
+                                 <Link to="/dashboard">
+                                    <button 
+                                        className="dropdown-item text-success"
+                                    >
+                                        Dashboard
+                                    </button>
+                                 </Link>   
+                                </li>
+                                <li>
+                                    <button 
+                                        className="dropdown-item text-danger"
+                                        onClick={handleLogoff}
+                                    >
+                                        <i className="fas fa-sign-out-alt me-2"></i>Sign Out
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
                     )}
                 </div>
             </div>

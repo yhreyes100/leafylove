@@ -27,9 +27,7 @@ export const Login = () => {
 				if (data["error"])
 					setError(Object.entries(data))
 				else {
-					actions.setUser(data.user, data.id)
-					localStorage.setItem("user", data.user)
-					localStorage.setItem("userId", data.id)
+					actions.setUser(data.id)
 					localStorage.setItem("jwt-token", data.token)
 					navigate("/dashboard")
 				}
