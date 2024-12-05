@@ -33,6 +33,7 @@ export const Profile = () => {
 					setMessage(Object.entries(data))
 					setError("")
 				}
+				actions.setUser(localStorage.getItem('id'))
 				console.log(data);
 			})
 			.catch(error => {

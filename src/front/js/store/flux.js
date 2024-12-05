@@ -1100,22 +1100,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			setUser(value){
 				localStorage.setItem("id", value)
-				const getUser= async ()=>{
-					const resp = await fetch(getStore().urlFetchApi+"/user/"+value,{
-						method:"GET",
-						headers:{
-							"Content-Type":"application/json",
-							"Authorization":'Bearer '+ localStorage.getItem('jwt-token')
-						}
-					})
-					.then(res => res.json())
-					.then(data => {
-						setStore({user:data["user"]})
-					})
-					.catch(err => console.error(err));    
-				   
-				   }
-				   getUser();
+				if(value){
+					const getUser= async ()=>{
+						const resp = await fetch(getStore().urlFetchApi+"/user/"+value,{
+							method:"GET",
+							headers:{
+								"Content-Type":"application/json",
+								"Authorization":'Bearer '+ localStorage.getItem('jwt-token')
+							}
+						})
+						.then(res => res.json())
+						.then(data => {
+							setStore({user:data["user"]})
+						})
+						.catch(err => console.error(err));    
+					   
+					   }
+					   getUser();
+				}
+				else{
+					setStore({user:{}})
+				}
 			},
 			getPlantList: () => {
 				fetch(speciesapiUrl)

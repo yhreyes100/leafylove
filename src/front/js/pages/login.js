@@ -68,7 +68,6 @@ export const Login = () => {
 								<label className="glabel" htmlFor="floatingPassword">Password</label>
 							</div>
 							<button className="btn btn-success rbuttom" onClick={() => login()}>Login</button>
-							<button className="btn btn-success rbuttom" onClick={() => login()}>Login</button>
 							<div className="text-center pb-4 mt-4">
 								Don't have an account? <Link to="/signup">Signup</Link>
 							</div>
