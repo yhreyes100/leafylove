@@ -44,7 +44,6 @@ export const Navbar = () => {
     useEffect(()=>{
         console.log("User info0: "+store.user)
     },[])
-    console.log(store.user+"aa")
     return (
         <nav className="navbar navbar-light bg-light">
             <div className="container">
