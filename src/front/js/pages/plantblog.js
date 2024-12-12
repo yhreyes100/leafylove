@@ -41,7 +41,7 @@ const PlantBlog = () => {
     return (
         <div className="container mt-5 pb-5 blog-div">
             {/* Create Post Section */}
-            {store.userId && (
+            {localStorage.getItem("jwt-token") && (
                 <>
                     <div className="d-flex mb-3">
                         <button
