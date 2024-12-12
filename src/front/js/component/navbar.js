@@ -58,30 +58,33 @@ export const Navbar = () => {
                     </span>
                 </Link>
                 <div className="ml-auto d-flex align-items-center">
-                    { ((store.user &&!("username" in store.user)) || store.user==undefined )? (
+                    {/* { */}
+                    {/* (  */}
+                        {/* (store.user &&!("username" in store.user)) || store.user==undefined )? ( */}
+                    {!localStorage.getItem("jwt-token") ? (
                         <Link to="/signup">
                             <button className="btn btn-success">
                                 Sign Up/Register <i className="fas fa-user"></i>
                             </button>
                         </Link>
-                    ) : (
+                    ) : ( 
                         <div className="dropdown">
                             <button
-                                className="btn btn-success dropdown-toggle"
+                                className="btn btn-success dropdown-toggle ms-2"
                                 type="button"
                                 id="userDropdown"
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
                                 aria-expanded={dropdownOpen}
                             >
-                                {
+                                {/* {
                                   (store.user &&("username" in store.user))?                                      
                                   store.user["username"] :
                                     ""
-                                }
+                                } */}
                                 <span>{String("")} <i className="fas fa-user"></i></span>
                             </button>
                             <ul 
-                                className={`dropdown-menu dropdown-menu-end ms-n5 ${dropdownOpen ? 'show' : ''}`}
+                                className={`dropdown-menu dropdown-menu-end ms-5 ${dropdownOpen ? 'show' : ''}`}
                                 aria-labelledby="userDropdown"
                             >
                                  <li>

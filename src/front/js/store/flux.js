@@ -8,7 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: {},
 			urlFetchApi: process.env.BACKEND_URL,
 			user: localStorage.getItem("user") || null,
-			userId: localStorage.getItem("userId") || null,
+			userId: localStorage.getItem("id") || null,
 			blogs: [],
 			blogError: null,
 			currentBlog: null,
@@ -1105,42 +1105,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 		},
 		actions: {
-			setUser(value){
+			setUser(value) {
 				localStorage.setItem("id", value)
-				if(value){
-					const getUser= async ()=>{
-						const resp = await fetch(getStore().urlFetchApi+"/user/"+value,{
-							method:"GET",
-							headers:{
-								"Content-Type":"application/json",
-								"Authorization":'Bearer '+ localStorage.getItem('jwt-token')
+				if (value) {
+					const getUser = async () => {
+						const resp = await fetch(getStore().urlFetchApi + "/user/" + value, {
+							method: "GET",
+							headers: {
+								"Content-Type": "application/json",
+								"Authorization": 'Bearer ' + localStorage.getItem('jwt-token')
 							}
 						})
-						.then(res => res.json())
-						.then(data => {
-							setStore({user:data["user"]})
-						})
-						.catch(err => console.error(err));    
-					   
-					   }
-					   getUser();
+							.then(res => res.json())
+							.then(data => {
+								setStore({ user: data["user"] })
+							})
+							.catch(err => console.error(err));
+
+					}
+					getUser();
 				}
-				else{
-					setStore({user:{}})
+				else {
+					setStore({ user: {} })
 				}
 			},
 			getPlantList: () => {
 				fetch(speciesapiUrl)
-				.then((res) => {
-					if(!res.ok){
-						throw new Error()
-					}
-					return res.json()
-				})
-				.then((data) =>{
-					console.log("plantslist", data.data);
-					setStore({ plantList: data.data});
-				})
+					.then((res) => {
+						if (!res.ok) {
+							throw new Error()
+						}
+						return res.json()
+					})
+					.then((data) => {
+						console.log("plantslist", data.data);
+						setStore({ plantList: data.data });
+					})
 			},
 			// setUser(value){
 			// 	localStorage.setItem("id", value)
@@ -1158,7 +1158,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 				setStore({user:data["user"]})
 			// 			})
 			// 			.catch(err => console.error(err));    
-					   
+
 			// 		   }
 			// 		   getUser();
 			// 	}
@@ -1194,7 +1194,236 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				const updatedFavorites = store.favoritePlantList.filter((elem) => elem.id !== id);
 				setStore({ favoritePlantList: updatedFavorites });
-			}
+			},
+
+			// ------------------------- START: plant blog actions -------------------------
+			// ------------------------- START: plant blog actions -------------------------
+			// ------------------------- START: plant blog actions -------------------------
+			// ------------------------- START: plant blog actions -------------------------
+			fetchBlogs: async () => {
+				try {
+					const store = getStore();
+					const resp = await fetch(process.env.BACKEND_URL + "/blog_posts");
+					const data = await resp.json();
+					setStore({ blogs: data, blogError: null });
+					return data;
+				} catch (error) {
+					setStore({ blogError: "Failed to load blog posts" });
+					console.error(error);
+				}
+			},
+
+			handleBlogLikeToggle: async (blogId, isLike) => {
+				const store = getStore();
+				if (!store.userId) {
+					setStore({ blogError: "Please log in to like posts" });
+					return;
+				}
+
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/blog_posts/${blogId}/like`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							userId: store.userId
+						},
+						body: JSON.stringify({ is_like: isLike })
+					});
+
+					if (resp.ok) {
+						await getActions().fetchBlogs();
+						await getActions().fetchBlogAndComments(blogId);
+					}
+				} catch (error) {
+					console.error("Error liking post:", error);
+				}
+			},
+
+			deleteBlog: async (blogId) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/delete_blog/${blogId}`, {
+						method: "DELETE",
+						headers: { userId: getStore().userId }
+					});
+
+					const data = await resp.json();
+
+					if (resp.status === 200) {
+						await getActions().fetchBlogs();
+						return true;
+					} else {
+						console.error("Delete response:", data);
+						return false;
+					}
+				} catch (error) {
+					console.error("Error deleting post:", error);
+					return false;
+				}
+			},
+
+			createBlogPost: async (postData) => {
+				const store = getStore();
+				if (!store.userId) {
+					setStore({ blogError: "Please log in to create a post" });
+					return false;
+				}
+
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/blog_posts", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							userId: store.userId
+						},
+						body: JSON.stringify({
+							...postData,
+							author_id: store.userId,
+						})
+					});
+
+					if (resp.ok) {
+						await getActions().fetchBlogs();
+						setStore({ blogError: null });
+						return true;
+					} else {
+						const data = await resp.json();
+						setStore({ blogError: data.error || "Failed to create post " });
+						return false;
+					}
+				} catch (error) {
+					setStore({ blogError: "Failed to create post" });
+					console.error(error);
+					return false;
+				}
+			},
+
+			editBlogPost: async (blogId, editedData) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/blog_posts/${blogId}/edit`, {
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+							userId: getStore().userId
+						},
+						body: JSON.stringify(editedData)
+					});
+
+					const data = await resp.json();
+
+					if (resp.ok) {
+						await getActions().fetchBlogs();
+						await getActions().fetchBlogAndComments(blogId);
+						return true;
+					} else {
+						setStore({ blogError: data.error || "Failed to edit post" });
+						return false;
+					}
+				} catch (error) {
+					setStore({ blogError: "Failed to edit post" });
+					console.error("Error editing post:", error);
+					return false;
+				}
+			},
+
+			fetchBlogAndComments: async (blogId) => {
+				try {
+					const blogResp = await fetch(`${process.env.BACKEND_URL}/blog_posts/${blogId}`);
+					const blogData = await blogResp.json();
+					setStore({ currentBlog: blogData });
+
+					const commentsResp = await fetch(`${process.env.BACKEND_URL}/blog_posts/${blogId}/comments`);
+					const commentsData = await commentsResp.json();
+					setStore({ blogComments: commentsData });
+				} catch (error) {
+					console.error("Error fetching data", error);
+				}
+			},
+
+			fetchUserLikeStatus: async (blogId) => {
+				if (!getStore().userId) {
+					setStore({ userLikeStatus: null });
+					return;
+				}
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/blog_posts/${blogId}/like_status`, {
+						headers: { userId: getStore().userId }
+					});
+					const data = await resp.json();
+					setStore({ userLikeStatus: data.status });
+				} catch (error) {
+					console.error("Error fetching like status:", error);
+				}
+			},
+
+			submitComment: async (blogId, content) => {
+				if (!getStore().userId) {
+					alert("Please log in to comment");
+					return false;
+				}
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/blog_posts/${blogId}/comments`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							userId: getStore().userId
+						},
+						body: JSON.stringify({ content })
+					});
+
+					if (resp.ok) {
+						await getActions().fetchBlogAndComments(blogId);
+						return true;
+					}
+					return false;
+				} catch (error) {
+					console.error("Error posting comment:", error);
+					return false;
+				}
+			},
+
+			deleteComment: async (blogId, commentId) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/comments/${commentId}`, {
+						method: "DELETE",
+						headers: { userId: getStore().userId }
+					});
+
+					if (resp.ok) {
+						await getActions().fetchBlogAndComments(blogId);
+						return true;
+					}
+					return false;
+				} catch (error) {
+					console.error("Error deleting comment:", error);
+					return false;
+				}
+			},
+
+			handleCommentLikeToggle: async (blogId, commentId, isLike) => {
+				if (!getStore().userId) {
+					alert("Please log in to like/islike comments");
+					return;
+				}
+
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/comments/${commentId}/like`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							userId: getStore().userId
+						},
+						body: JSON.stringify({ is_like: isLike })
+					});
+
+					if (resp.ok) {
+						await getActions().fetchBlogAndComments(blogId);
+					}
+				} catch (error) {
+					console.error("Error liking/disliking comment:", error);
+				}
+			},
+			// ------------------------- END: plant blog actions -------------------------
+			// ------------------------- END: plant blog actions -------------------------
 		}
 	};
 };
