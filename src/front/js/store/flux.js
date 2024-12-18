@@ -906,6 +906,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({ user: {} })
 				}
 			},
+
+			setGrid: (newGrid) => {
+				setStore({ grid: newGrid });
+				const newGridJSON = JSON.stringify(newGrid);
+				localStorage.setItem("grid", newGridJSON);
+			},
+			
 			getPlantList: () => {
 				fetch(speciesapiUrl)
 					.then((res) => {
@@ -918,6 +925,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log("plantslist", data.data);
 						setStore({ plantList: data.data });
 					})
+					.catch(error => console.error("Error fetching plant list:", error));
 			},
 			// setUser(value){
 			// 	localStorage.setItem("id", value)
