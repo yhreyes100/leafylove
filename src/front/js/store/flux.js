@@ -911,7 +911,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const newGridJSON = JSON.stringify(newGrid);
 				localStorage.setItem("grid", newGridJSON);
 			},
-			
+
 			getPlantList: () => {
 				fetch(speciesapiUrl)
 					.then((res) => {
@@ -969,14 +969,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				const isAlreadyFavorite = store.favoritePlantList.some((elem) => elem.commonName === plant.commonName);
 				console.log(isAlreadyFavorite)
+				console.log("plant being added to favoritePlantList", plant);
 				if (!isAlreadyFavorite) {
 					setStore({ favoritePlantList: [...store.favoritePlantList, plant] });
 				}
 			},
 
-			removeFavorite: (id) => {
+			// removeFavorite: (id) => {
+			// 	const store = getStore();
+			// 	const updatedFavorites = store.favoritePlantList.filter((elem) => elem.id !== id);
+			// 	setStore({ favoritePlantList: updatedFavorites });
+			// },
+			removeFavorite: (plant) => {
 				const store = getStore();
-				const updatedFavorites = store.favoritePlantList.filter((elem) => elem.id !== id);
+				const updatedFavorites = store.favoritePlantList.filter((elem) => elem.commonName !== plant.commonName);
 				setStore({ favoritePlantList: updatedFavorites });
 			},
 
