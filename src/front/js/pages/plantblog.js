@@ -13,7 +13,7 @@ const PlantBlog = () => {
         content: "",
         image_url: ""
     });
-const navigate = useNavigate()
+    const navigate = useNavigate()
 
     useEffect(() => {
         actions.fetchBlogs();
@@ -35,7 +35,7 @@ const navigate = useNavigate()
         if (success) {
             setNewPost({ title: "", content: "", image_url: "" });
         }
-        navigate("/dashboard")
+        //navigate("/dashboard")
     };
 
 
